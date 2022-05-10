@@ -1,0 +1,21 @@
+.login-box {
+    padding: 3rem 0;
+    height: 100vh;
+    .login-form {
+        box-shadow: rgb(0 0 0 / 10%) 0px 1px 4px, rgb(0 0 0 / 10%) 0px 2px 3px;
+    }
+}
+
+.card-title {
+    color: $c-primary;
+}
+
+.user-action {
+    color: $c-tertiary;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    &:hover {
+        color: $c-primary;
+    }
+}

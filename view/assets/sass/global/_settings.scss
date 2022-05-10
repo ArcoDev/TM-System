@@ -1,0 +1,152 @@
+@charset "UTF-8";
+// Global variables
+$is-debugging:					true !default;
+
+// Breakpoints - Min
+$screen-bs-min:					0;
+$screen-xs-min:					321px;
+$screen-sm-min:					480px;
+$screen-md-min:					768px;
+$screen-lg-min:					1024px;
+$screen-xl-min:					1280px;
+$screen-xxl-min:				1440px;
+$screen-hd-min:					1920px;
+
+// Breakpoints - Max
+$screen-bs-max:					$screen-xs-min - 1; // 320px
+$screen-xs-max:					$screen-sm-min - 1; // 479px
+$screen-sm-max:					$screen-md-min - 1; // 767px
+$screen-md-max:					$screen-lg-min - 1; // 1023px
+$screen-lg-max:					$screen-xl-min - 1; // 1279px
+$screen-xl-max:					$screen-xxl-min - 1; // 1439px
+$screen-xxl-max:				$screen-hd-min - 1; // 1919px
+
+// Width to .re-central
+$re-central-width-bs:			100%;
+$re-central-width-xs:			100%;
+$re-central-width-sm:			98%;
+$re-central-width-md:			94%;
+$re-central-width-lg:			($screen-lg-min * 0.95);
+$re-central-width-xl:			($screen-xl-min * 0.95);
+$re-central-width-xxl:			($screen-xxl-min * 0.85);
+$re-central-width-hd:			($screen-hd-min * 0.65);
+
+
+// Font Weight
+$font-thin:						100;
+$font-x-light:					200;
+$font-light:					300;
+$font-regular:					400;
+$font-medium:					500;
+$font-semibold:					600;
+$font-bold:						700;
+$font-x-bold:					800;
+$font-black:					900;
+
+// Color Palette
+$c-primary:						#304671;
+$c-secondary:					#ffffff;
+$c-tertiary:					#979797;
+$c-gray: 						#f5f5f5;
+$c-quaternary:				    #1da0db;
+$c-dark:						#2a2b2c;
+$c-info:						#59abe3;
+$c-success:						#03c9a9;
+$c-alert:						#f7ca18;
+$c-invalid:						#db0a5b;
+$c-error:						#db0a5b;
+
+// z-index
+$z-cintillo:					600;
+$z-brand:						505;
+$z-brand--desktop:				595;
+$z-header:						500;
+$z-header--desktop:				500;
+$z-header-top-bar:				580;
+$z-header-middle-bar:			530;
+$z-mainnav-mobile:				1010;
+$z-mainnav-trigger:				1011;
+$z-mainnav-desktop:				520;
+$z-main:						auto;
+$z-main--desktop:				auto;
+$z-footer:						100;
+$z-offcanvas:					2000;
+$z-overlay:						1000;
+$z-modal:						3000;
+$z-wp:							600;
+
+// Cintillo - Height
+$cintillo-height--xs:			50px;
+$cintillo-height--lg:			50px;
+// Cintillo Description - Height
+$cintillo_desc-height--xs:		60px;
+$cintillo_desc-height--lg:		100px;
+// Top Bar - Height
+$topbar-height--xs:				30px;
+$topbar-height--lg:				30px;
+// Header - Height
+$header-height--xs:				80px;
+$header-height--lg:				100px;
+$header-height--lg-scroll:		100px;
+// Brand dimmensios
+$brand-width:					460px;
+$brand-height:					109px;
+
+// Gutter
+$gutter:						16px;
+// Animation Time
+$animate-time:					0.3s;
+// Paths
+$image-path:					'/img/';
+
+// Breakpoints - Map
+$breakpoints-min: (
+	bs:							$screen-bs-min,
+	xs:							$screen-xs-min,
+	sm:							$screen-sm-min,
+	md:							$screen-md-min,
+	lg:							$screen-lg-min,
+	xl:							$screen-xl-min,
+	xxl:						$screen-xxl-min,
+	hd:							$screen-hd-min
+);
+$breakpoints-max: (
+	bs:							$screen-bs-max,
+	xs:							$screen-xs-max,
+	sm:							$screen-sm-max,
+	md:							$screen-md-max,
+	lg:							$screen-lg-max,
+	xl:							$screen-xl-max,
+	xxl:						$screen-xxl-max,
+	hd:							10000px
+);
+$breakpoints: (
+	bs:							(min: $screen-bs-min, max: $screen-bs-max),
+	xs:							(min: $screen-xs-min, max: $screen-xs-max),
+	sm:							(min: $screen-sm-min, max: $screen-sm-max),
+	md:							(min: $screen-md-min, max: $screen-md-max),
+	lg:							(min: $screen-lg-min, max: $screen-lg-max),
+	xl:							(min: $screen-xl-min, max: $screen-xl-max),
+	xxl:						(min: $screen-xxl-min, max: $screen-xxl-max),
+	hd:							(min: $screen-hd-min, max: 10000px)
+);
+
+
+// Font-weight - List
+$font-weight-list: (
+	('thin', 100),
+	('x-light', 200),
+	('light', 300),
+	('regular', 400),
+	('medium', 500),
+	('semibold', 600),
+	('bold', 700),
+	('x-bold', 800),
+	('black', 900)
+);
+
+/*--------------------Product Item--------------------*/
+// Gutter
+$gutter-xs:						5px;
+$gutter-st:						16px;
+$gutter-lg:						32px;

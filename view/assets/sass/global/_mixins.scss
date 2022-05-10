@@ -1,0 +1,1003 @@
+/*--------------------Functions--------------------*/
+// Comments
+/*!
+----------------------------------------------------------------------------------------------------
+* Important! - To edit this CSS, you must use the SCSS source file.
+
+* This code overwrites some default Vtex classes.
+* Bombilla Digital | webmaster@bombilladigital.com
+----------------------------------------------------------------------------------------------------
+*/
+
+/// @name MapDeepGet
+@function map-deep-get($map, $keys...) {
+	@each $key in $keys {
+		$map: map-get($map, $key);
+	}
+
+	@return $map;
+}
+
+/// @author Bombilla Digital
+/// @access public
+/// @param {string} $string
+/// @param {string} $selector
+@function removeSelector($string, $selector: '.') {
+	$index: str-index(#{$string}, $selector)+1;
+	$length: str-length(#{$string});
+	$className: str-slice(#{$string}, $index, $length);
+	@return $className;
+}
+
+/// @name PXtoEM
+$browser-context: 16;
+
+@function em($pixels, $context: $browser-context) {
+	@if (unitless($pixels)) {
+		$pixels: $pixels * 1px;
+	}
+
+	@if (unitless($context)) {
+		$context: $context * 1px;
+	}
+
+	@return $pixels / $context * 1em;
+}
+
+/// @name PXtoEM
+$browser-context: 16;
+
+@function rem($pixels, $context: $browser-context) {
+	@if (unitless($pixels)) {
+		$pixels: $pixels * 1px;
+	}
+
+	@if (unitless($context)) {
+		$context: $context * 1px;
+	}
+
+	@return $pixels / $context * 1rem;
+}
+
+/*--------------------Mixins--------------------*/
+/* ----------Width for container .re-central---------- */
+@mixin re-central-width {
+	width: 100%;
+
+	// Mobile
+	@media screen and (min-width: $screen-bs-min) and (max-width: $screen-bs-max) {
+		width: $re-central-width-bs;
+	}
+
+	@media screen and (min-width: $screen-xs-min) and (max-width: $screen-xs-max) {
+		width: $re-central-width-xs;
+	}
+
+	@media screen and (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
+		width: $re-central-width-sm;
+	}
+
+	@media screen and (min-width: $screen-md-min) and (max-width: $screen-md-max) {
+		width: $re-central-width-md;
+	}
+
+	// Desktop
+	@media screen and (min-width: $screen-lg-min) and (max-width: $screen-lg-max) {
+		width: $re-central-width-lg;
+	}
+
+	@media screen and (min-width: $screen-xl-min) and (max-width: $screen-xl-max) {
+		width: $re-central-width-xl;
+	}
+
+	@media screen and (min-width: $screen-xxl-min) and (max-width: $screen-xxl-max) {
+		width: $re-central-width-xxl;
+	}
+
+	@media screen and (min-width: $screen-hd-min) {
+		width: $re-central-width-hd;
+	}
+}
+
+@mixin re-central-width-until-md($important: null) {
+	@media screen and (min-width: $screen-md-min) and (max-width: $screen-md-max) {
+		width: $re-central-width-md $important;
+	}
+
+	@media screen and (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
+		width: $re-central-width-sm $important;
+	}
+
+	@media screen and (min-width: $screen-xs-min) and (max-width: $screen-xs-max) {
+		width: $re-central-width-xs $important;
+	}
+
+	@media screen and (max-width: $screen-bs-max) {
+		width: $re-central-width-bs $important;
+	}
+}
+
+@mixin re-central-width-from-lg($important: null) {
+	@media screen and (min-width: $screen-lg-min) and (max-width: $screen-lg-max) {
+		width: $re-central-width-lg $important;
+	}
+
+	@media screen and (min-width: $screen-xl-min) and (max-width: $screen-xl-max) {
+		width: $re-central-width-xl $important;
+	}
+
+	@media screen and (min-width: $screen-xxl-min) and (max-width: $screen-xxl-max) {
+		width: $re-central-width-xxl $important;
+	}
+
+	@media screen and (min-width: $screen-hd-min) {
+		width: $re-central-width-hd $important;
+	}
+}
+
+/* ----------Horizontal padding respect .re-central---------- */
+@mixin re-central-padding-l-from-lg($fallback: null) {
+	padding-left: $fallback;
+
+	@media screen and (min-width: $screen-lg-min) and (max-width: $screen-lg-max) {
+		padding-left: calc((107% - #{$re-central-width-lg}) / 2);
+	}
+
+	@media screen and (min-width: $screen-xl-min) and (max-width: $screen-xl-max) {
+		padding-left: calc((107% - #{$re-central-width-xl}) / 2);
+	}
+
+	@media screen and (min-width: $screen-xxl-min) and (max-width: $screen-xxl-max) {
+		padding-left: calc((107% - #{$re-central-width-xxl}) / 2);
+	}
+
+	@media screen and (min-width: $screen-hd-min) {
+		padding-left: calc((107% - #{$re-central-width-hd}) / 2);
+	}
+}
+
+@mixin re-central-padding-r-from-lg($fallback: null) {
+	padding-right: $fallback;
+
+	@media screen and (min-width: $screen-lg-min) and (max-width: $screen-lg-max) {
+		padding-right: calc((107% - #{$re-central-width-lg}) / 2);
+	}
+
+	@media screen and (min-width: $screen-xl-min) and (max-width: $screen-xl-max) {
+		padding-right: calc((107% - #{$re-central-width-xl}) / 2);
+	}
+
+	@media screen and (min-width: $screen-xxl-min) and (max-width: $screen-xxl-max) {
+		padding-right: calc((107% - #{$re-central-width-xxl}) / 2);
+	}
+
+	@media screen and (min-width: $screen-hd-min) {
+		padding-right: calc((107% - #{$re-central-width-hd}) / 2);
+	}
+}
+
+/* ----------Aligment respect .re-central---------- */
+@mixin re-central-left-until-md($important: null) {
+	@media screen and (min-width: $screen-md-min) and (max-width: $screen-md-max) {
+		left: (100% - $re-central-width-md) / 2 $important;
+	}
+
+	@media screen and (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
+		left: (100% - $re-central-width-sm) / 2 $important;
+	}
+
+	@media screen and (min-width: $screen-xs-min) and (max-width: $screen-xs-max) {
+		left: (100% - $re-central-width-xs) / 2 $important;
+	}
+
+	@media screen and (max-width: $screen-bs-max) {
+		left: (100% - $re-central-width-bs) / 2 $important;
+	}
+}
+
+@mixin re-central-left-from-lg($has-bp-lg: false, $important: null) {
+	@if $has-bp-lg==false {
+		@media screen and (min-width: $screen-lg-min) {
+			left: 50% $important;
+			transform: translateX(15px);
+		}
+	}
+
+	@media screen and (min-width: $screen-lg-min) and (max-width: $screen-lg-max) {
+		margin-left: -($re-central-width-lg / 2);
+	}
+
+	@media screen and (min-width: $screen-xl-min) and (max-width: $screen-xl-max) {
+		margin-left: -($re-central-width-xl / 2);
+	}
+
+	@media screen and (min-width: $screen-xxl-min) and (max-width: $screen-xxl-max) {
+		margin-left: -($re-central-width-xxl / 2);
+	}
+
+	@media screen and (min-width: $screen-hd-min) {
+		margin-left: -($re-central-width-hd / 2);
+	}
+}
+
+@mixin re-central-left-from-lg--fluid($important: null) {
+	@media screen and (min-width: $screen-lg-min) and (max-width: $screen-lg-max) {
+		left: (100% - $re-central-width-md) / 2 $important;
+	}
+
+	@media screen and (min-width: $screen-xl-min) and (max-width: $screen-xl-max) {
+		left: (100% - $re-central-width-md) / 2 $important;
+	}
+
+	@media screen and (min-width: $screen-xxl-min) and (max-width: $screen-xxl-max) {
+		left: (100% - $re-central-width-md) / 2 $important;
+	}
+
+	@media screen and (min-width: $screen-hd-min) {
+		left: (100% - $re-central-width-md) / 2 $important;
+	}
+}
+
+@mixin re-central-right-until-md($important: null, $space: false) {
+	@media screen and (min-width: $screen-md-min) and (max-width: $screen-md-max) {
+		right: calc((100% - #{$re-central-width-md}) / 2 + 15px) $important;
+	}
+
+	@media screen and (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
+		right: calc((100% - #{$re-central-width-sm}) / 2 + 15px) $important;
+	}
+
+	@media screen and (min-width: $screen-xs-min) and (max-width: $screen-xs-max) {
+		right: calc((100% - #{$re-central-width-xs}) / 2 + 15px) $important;
+	}
+
+	@media screen and (max-width: $screen-bs-max) {
+		right: calc((100% - #{$re-central-width-bs}) / 2 + 15px) $important;
+	}
+}
+
+@mixin re-central-right-from-lg($has-bp-lg: false, $important: null) {
+	@if $has-bp-lg==false {
+		@media screen and (min-width: $screen-lg-min) {
+			right: 50% $important;
+			transform: translateX(-15px);
+		}
+	}
+
+	@media screen and (min-width: $screen-lg-min) and (max-width: $screen-lg-max) {
+		margin-right: -($re-central-width-lg / 2);
+	}
+
+	@media screen and (min-width: $screen-xl-min) and (max-width: $screen-xl-max) {
+		margin-right: -($re-central-width-xl / 2);
+	}
+
+	@media screen and (min-width: $screen-xxl-min) and (max-width: $screen-xxl-max) {
+		margin-right: -($re-central-width-xxl / 2);
+	}
+
+	@media screen and (min-width: $screen-hd-min) {
+		margin-right: -($re-central-width-hd / 2);
+	}
+}
+
+@mixin re-central-right-from-lg--fluid($important: null) {
+	@media screen and (min-width: $screen-lg-min) and (max-width: $screen-lg-max) {
+		right: (100% - $re-central-width-md) / 2 $important;
+	}
+
+	@media screen and (min-width: $screen-xl-min) and (max-width: $screen-xl-max) {
+		right: (100% - $re-central-width-md) / 2 $important;
+	}
+
+	@media screen and (min-width: $screen-xxl-min) and (max-width: $screen-xxl-max) {
+		right: (100% - $re-central-width-md) / 2 $important;
+	}
+
+	@media screen and (min-width: $screen-hd-min) {
+		right: (100% - $re-central-width-md) / 2 $important;
+	}
+}
+
+/* ----------Flexbox---------- */
+// Container
+@mixin flex-direction($fd: row) {
+	@if $fd !=null and $fd !=row {
+		flex-direction: $fd;
+	}
+}
+
+@mixin flex-wrap($fw: nowrap) {
+	@if $fw !=null and $fw !=nowrap {
+		flex-wrap: $fw;
+	}
+}
+
+@mixin flex-flow($fd: row, $fw: nowrap) {
+	@if $fd !=null and $fd !=row {
+		@if $fw !=null and $fw !=nowrap {
+			flex-flow: $fd $fw;
+		}
+
+		@else {
+			@include flex-direction($fd);
+			@include flex-wrap($fw);
+		}
+	}
+
+	@else {
+		@include flex-direction($fd);
+		@include flex-wrap($fw);
+	}
+}
+
+@mixin justify-content($jc: flex-start) {
+	@if $jc !=null and $jc !=flex-start {
+		justify-content: $jc;
+	}
+}
+
+@mixin align-items($ai: stretch) {
+	@if $ai !=null and $ai !=stretch {
+		align-items: $ai;
+	}
+}
+
+@mixin align-content($ac: stretch) {
+	@if $ac !=null and $ac !=stretch {
+		align-content: $ac;
+	}
+}
+
+// Items
+@mixin order($o: 0) {
+	@if $o !=null and $o !=0 {
+		order: $o;
+	}
+}
+
+@mixin flex-grow($fg: 0) {
+	@if $fg !=null and $fg !=0 {
+		flex-grow: $fg;
+	}
+}
+
+@mixin flex-shrink($fs: 1) {
+	@if $fs !=null and $fs !=1 {
+		flex-shrink: $fs;
+	}
+}
+
+@mixin flex-basis($fb: auto) {
+	@if $fb !=null and $fb !=auto {
+		flex-basis: $fb;
+	}
+}
+
+@mixin flex($fg: 0, $fs: 1, $fb: auto) {
+	@if $fg !=null and $fg !=0 {
+		@if $fs !=null and $fs !=1 {
+			@if $fb !=null and $fb !=auto {
+				flex: $fg $fs $fb;
+			}
+
+			@else {
+				@include flex-grow($fg);
+				@include flex-shrink($fs);
+				@include flex-basis($fb);
+			}
+		}
+
+		@else {
+			@include flex-grow($fg);
+			@include flex-shrink($fs);
+			@include flex-basis($fb);
+		}
+	}
+
+	@else {
+		@include flex-grow($fg);
+		@include flex-shrink($fs);
+		@include flex-basis($fb);
+	}
+}
+
+@mixin align-self($as: auto) {
+	@if $as !=null and $as !=auto {
+		align-self: $as;
+	}
+}
+
+/// @name Flexbox
+/// @author Bombilla Digital
+/// @access public
+@mixin flexbox($d: flex, $fd: null, $fw: null, $jc: null, $ai: null, $ac: null) {
+	display: $d;
+	@include flex-flow($fd, $fw);
+	@include justify-content($jc);
+	@include align-items($ai);
+	@include align-content($ac);
+}
+
+/// @name FlexItem
+/// @author Bombilla Digital
+/// @access public
+@mixin flex-item($o: null, $fg: null, $fs: null, $fb: null, $as: null) {
+	@include order($o);
+	@include flex($fg, $fs, $fb);
+	@include align-self($as);
+}
+
+/* ----------Absolute Position [Center]---------- */
+/// @name AbsoluteCenter
+@mixin absolute-center {
+	display: block;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	padding: inherit;
+}
+
+/// @name VerticalCenter
+@mixin vertical-center {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+/// @name HorizontalCenter
+@mixin horizontal-center {
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+/* ----------Paddings---------- */
+/// @name VerticalPadding
+@mixin padding-v($top: 15, $bottom: $top, $unit: px) {
+	@if $unit==1% {
+		padding-top: $top * $unit;
+		padding-bottom: $bottom * $unit;
+	}
+
+	@else {
+		padding-top: $top+$unit;
+		padding-bottom: $bottom+$unit;
+	}
+}
+
+/// @name HorizontalPadding
+@mixin padding-h($left: 15, $right: $left, $unit: px) {
+	@if $unit==1% {
+		padding-left: $left * $unit;
+		padding-right: $right * $unit;
+	}
+
+	@else {
+		padding-left: $left+$unit;
+		padding-right: $right+$unit;
+	}
+}
+
+/* ----------Borders---------- */
+/// @name VerticalBorder
+@mixin border-v($width: 1, $type: solid, $color: $c-lightgray) {
+	border-top: $width+px $type $color;
+	border-bottom: $width+px $type $color;
+}
+
+/// Horizontal border
+@mixin border-h($width: 1, $type: solid, $color: $c-lightgray) {
+	border-left: $width+px $type $color;
+	border-right: $width+px $type $color;
+}
+
+/* ----------Margins---------- */
+/// @name VerticalMargin
+@mixin margin-v($top: 15, $bottom: $top, $unit: px) {
+	@if $unit==1% {
+		margin-top: $top * $unit;
+		margin-bottom: $bottom * $unit;
+	}
+
+	@else {
+		margin-top: $top+$unit;
+		margin-bottom: $bottom+$unit;
+	}
+}
+
+/// @name HorizontalMargin
+@mixin margin-h($left: 15, $right: $left, $unit: px) {
+	@if $unit==1% {
+		margin-left: $left * $unit;
+		margin-right: $right * $unit;
+	}
+
+	@else {
+		margin-left: $left+$unit;
+		margin-right: $right+$unit;
+	}
+}
+
+/// @name HorizontalAutoMargin
+@mixin horizontal-center-auto {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+/* ----------Grid Helpers---------- */
+/// @name Grid[Regular]
+/// @author Bombilla Digital
+/// @access public
+@mixin grid($items, $arguments...) {
+	display: flex;
+	flex-wrap: wrap;
+
+	// Container
+	@each $breakpointMap in $arguments {
+		$breakpoint: map-deep-get($breakpoints, map-get($breakpointMap, bp), min);
+
+		@if $breakpoint==0 {
+			margin-left: map-get($breakpointMap, gutter) * -1px;
+			margin-right: map-get($breakpointMap, gutter) * -1px;
+		}
+
+		@else {
+			@media screen and (min-width: $breakpoint) {
+				margin-left: map-get($breakpointMap, gutter) * -1px;
+				margin-right: map-get($breakpointMap, gutter) * -1px;
+			}
+		}
+	}
+
+	// Items
+	@at-root #{$items} {
+		@each $breakpointMap in $arguments {
+			$breakpoint: map-deep-get($breakpoints, map-get($breakpointMap, bp), min);
+
+			@if $breakpoint==0 {
+				width: 100% / map-get($breakpointMap, cols);
+				padding-left: map-get($breakpointMap, gutter) * 1px;
+				padding-right: map-get($breakpointMap, gutter) * 1px;
+				margin-bottom: map-get($breakpointMap, gutter) * 2px;
+			}
+
+			@else {
+				@media screen and (min-width: $breakpoint) {
+					width: 100% / map-get($breakpointMap, cols);
+					padding-left: map-get($breakpointMap, gutter) * 1px;
+					padding-right: map-get($breakpointMap, gutter) * 1px;
+					margin-bottom: map-get($breakpointMap, gutter) * 2px;
+				}
+			}
+		}
+	}
+}
+
+/* ----------Helpers---------- */
+/// @name SizeProportion
+/// @author Bombilla Digital
+/// @access public
+/// @param {number} [$rW=1]
+/// @param {number} [$rH=$rW]
+/// @param {number} [$dW=null]
+/// @param {number} [$dH=$dW]
+/// @param {number} [$unit=1em]
+@mixin sizeProportion($rW: 1, $rH: $rW, $dW: null, $dH: $dW, $unit: 1em) {
+	@if $rW==$rH {
+		@if $dW !=null {
+			width: $dW * $unit;
+			height: $dW * $unit;
+		}
+
+		@else {
+			width: $dH * $unit;
+			height: $dH * $unit;
+		}
+	}
+
+	@else {
+		@if $dW !=null {
+			width: $dW * $unit;
+			height: ($dW * $rH / $rW) * $unit;
+		}
+
+		@else {
+			width: ($dH * $rW / $rH) * $unit;
+			height: $dH * $unit;
+		}
+	}
+}
+
+/// @name BoxTable
+@mixin box-table {
+	display: table;
+
+	>div {
+		display: table-cell;
+		float: none;
+		vertical-align: middle;
+	}
+}
+
+/// @name FontSizeTo-pt
+@mixin font-size($fz: 1) {
+	font-size: ($fz*12)+pt;
+	font-size: $fz+rem;
+}
+
+/// @name FontSizeTo-rem
+@mixin font-size-px($fz: 10) {
+	font-size: $fz+px;
+	font-size: ($fz/16)+rem;
+}
+
+/// @name FontSizeTo-rem
+@mixin font-size-pt($fz: 10) {
+	font-size: $fz+pt;
+	font-size: ($fz/12)+rem;
+}
+
+/// @name Opacity
+@mixin opacity($opacidad) {
+	opacity: $opacidad;
+	filter: alpha(opacity=#{$opacidad * 100});
+}
+
+/// @name PlaceholderText
+@mixin placeholder($color: $input-color-placeholder) {
+	&::-moz-placeholder {
+		color: $color;
+	}
+
+	&:-moz-placeholder {
+		color: $color;
+	}
+
+	&:-ms-input-placeholder {
+		color: $color;
+	}
+
+	&::-webkit-input-placeholder {
+		color: $color;
+	}
+}
+
+/// @name Scrollbar
+/// @author Bombilla Digital
+/// @access public
+@mixin scrollbar($color: $c-lightgray) {
+	&::-webkit-scrollbar {
+		width: 3px;
+		background-color: transparent;
+	}
+
+	&::-webkit-scrollbar-track {
+		border-radius: 2px;
+		background-color: lighten($color, 20);
+	}
+
+	&::-webkit-scrollbar-thumb {
+		border-radius: 2px;
+		background-color: darken($color, 5);
+	}
+}
+
+/// @name Clearfix
+@mixin clearfix() {
+	&:after {
+		content: '';
+		display: table;
+		clear: both;
+	}
+}
+
+/* ----------Media Queries---------- */
+@function breakpointMinExist($breakpoint) {
+	@return map-has-key($breakpoints-min, $breakpoint);
+}
+
+@function breakpointMaxExist($breakpoint) {
+	@return map-has-key($breakpoints-max, $breakpoint);
+}
+
+@function breakpointMinVal($breakpoint) {
+	@return map-get($breakpoints-min, $breakpoint);
+}
+
+@function breakpointMaxVal($breakpoint) {
+	@return map-get($breakpoints-max, $breakpoint);
+}
+
+/// @name BreakpointIsValid
+@function breakpointIsValid($breakpoint) {
+	@return type_of($breakpoint)==number and unit($breakpoint)==px or unit($breakpoint)==em or unit($breakpoint)==rem;
+}
+
+;
+
+/// @name MediaForm
+/// @author Bombilla Digital
+/// @access public
+/// @param {string, number} $breakpoint-min
+@mixin mediaFrom($breakpoint-min) {
+	@if breakpointMinExist($breakpoint-min) {
+		@media screen and (min-width: breakpointMinVal($breakpoint-min)) {
+			@content;
+		}
+	}
+
+	@else if breakpointIsValid($breakpoint-min) {
+		@media screen and (min-width: $breakpoint-min) {
+			@content;
+		}
+	}
+
+	@else {
+		@error 'No value could be retrieved from "#{$breakpoint-min}". It is either not defined in the map, or it is an invalid number of px, em, or rem.';
+	}
+}
+
+/// @name MediaTo
+/// @author Bombilla Digital
+/// @access public
+/// @param {string, number} $breakpoint-max
+@mixin mediaTo($breakpoint-max) {
+	@if breakpointMaxExist($breakpoint-max) {
+		@media screen and (max-width: breakpointMaxVal($breakpoint-max)) {
+			@content;
+		}
+	}
+
+	@else if breakpointIsValid($breakpoint-max) {
+		@media screen and (max-width: $breakpoint-max) {
+			@content;
+		}
+	}
+
+	@else {
+		@error 'No value could be retrieved from "#{$breakpoint-max}". It is either not defined in the map, or it is an invalid number of px, em, or rem.';
+	}
+}
+
+/// @name MediaBetween
+/// @author Bombilla Digital
+/// @access public
+/// @param {string, number} $breakpoint-min
+/// @param {string, number} $breakpoint-max
+@mixin mediaBetween($breakpoint-min, $breakpoint-max) {
+	@if breakpointMinExist($breakpoint-min) and breakpointMaxExist($breakpoint-max) {
+		@media screen and (min-width: breakpointMinVal($breakpoint-min)) and (max-width: breakpointMaxVal($breakpoint-max)) {
+			@content;
+		}
+	}
+
+	@else if breakpointMinExist($breakpoint-min) and breakpointIsValid($breakpoint-max) {
+		@media screen and (min-width: breakpointMinVal($breakpoint-min)) and (max-width: $breakpoint-max) {
+			@content;
+		}
+	}
+
+	@else if breakpointIsValid($breakpoint-min) and breakpointMaxExist($breakpoint-max) {
+		@media screen and (min-width: $breakpoint-min) and (max-width: breakpointMaxVal($breakpoint-max)) {
+			@content;
+		}
+	}
+
+	@else if breakpointIsValid($breakpoint-min) and breakpointIsValid($breakpoint-max) {
+		@media screen and (min-width: $breakpoint-min) and (max-width: $breakpoint-max) {
+			@content;
+		}
+	}
+
+	@else {
+		@error 'No value could be retrieved from "#{$breakpoint-min}". It is either not defined in the map, or it is an invalid number of px, em, or rem.';
+	}
+}
+
+/// @name CommonBreakpoints
+/// @author Bombilla Digital
+/// @access public
+/// @param {List} $propertyList
+@mixin commonBreakpoints($propertyList...) {
+
+	/* Common Breakpoint [bs] */
+	@each $property,
+	$bs,
+	$md,
+	$lg in $propertyList {
+		#{$property}: $bs;
+	}
+
+	@media screen and (min-width: $screen-md-min) {
+
+		/* Common Breakpoint [md] */
+		@each $property,
+		$bs,
+		$md,
+		$lg in $propertyList {
+			#{$property}: $md;
+		}
+	}
+
+	@media screen and (min-width: $screen-lg-min) {
+
+		/* Common Breakpoint [lg] */
+		@each $property,
+		$bs,
+		$md,
+		$lg in $propertyList {
+			#{$property}: $lg;
+		}
+	}
+}
+
+/// @name PropertyBreakpoints
+@mixin propertyBreakpoints($property, $map) {
+	$keys: map-keys($map);
+
+	@each $breakpoint,
+	$value in $map {
+		@if map-deep-get($breakpoints, $breakpoint, 'min')==0 {
+			#{$property}: map-get($map, nth($keys, 1));
+		}
+
+		@else {
+			@media screen and (min-width: map-deep-get($breakpoints, $breakpoint, 'min')) {
+				#{$property}: $value;
+			}
+		}
+	}
+}
+
+/// @name PropertiesBreakpoints
+/// @author Bombilla Digital
+/// @access public
+@mixin propertiesBreakpoints($arguments...) {
+
+	// maps: #{$arguments};
+	@each $breakpoint,
+	$value in $breakpoints-min {
+		@if $value==0 {
+			@each $propertyMap in $arguments {
+
+				// propertyMap: #{$propertyMap};
+				@each $property,
+				$propertyBreakpoint in $propertyMap {
+
+					// #{propertyBreakpoint of $property}: #{$propertyBreakpoint};
+					@each $bp,
+					$val in $propertyBreakpoint {
+						@if $bp==$breakpoint {
+							#{$property}: $val;
+						}
+					}
+				}
+			}
+		}
+
+		@else {
+			@media screen and (min-width: map-get($breakpoints-min, $breakpoint)) {
+				@each $propertyMap in $arguments {
+
+					@each $property,
+					$propertyBreakpoint in $propertyMap {
+
+						@each $bp,
+						$val in $propertyBreakpoint {
+							@if $bp==$breakpoint {
+								#{$property}: $val;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+/* ----------Debug---------- */
+/// @name Debug
+@mixin debug($is-debugging: false, $contentColor: #fff7d5, $paddingColor: #e2f1d8, $oc: red, $style: dashed) {
+	@if $is-debugging {
+		background: linear-gradient($contentColor, $contentColor) content-box,
+			linear-gradient($paddingColor, $paddingColor) padding-box;
+		outline: 1px $style rgba($oc, 0.5);
+		// box-shadow: inset 0 0 0 1px rgba($oc,0.5);
+	}
+}
+
+@mixin button-lineal($color: $c-primary, $font-color: white) {
+	font-family: $font-subtitle;
+	width: auto;
+	min-width: 125px;
+	display: inline-block;
+	border-width: 1px;
+	letter-spacing: .05em;
+	border-style: solid;
+	padding: 0.5em 1.3em;
+	text-align: center;
+	text-transform: uppercase;
+	background-color: transparent;
+	border-radius: 3px;
+
+	@if $color !=null {
+		border-color: $color;
+		color: $color;
+		transition: color .3s, background .3s;
+
+		&:hover {
+			color: $font-color;
+		}
+	}
+}
+
+@mixin button-flat($color: $c-primary, $font-color: white) {
+	width: auto;
+	display: inline-block;
+	padding: rem(15) rem(40);
+	border-radius: 50px;
+	text-align: center;
+	background-color: transparent;
+	font-family: $font-subtitle;
+	text-transform: uppercase;
+	transition: all .3s;
+
+	@if $color !=null {
+		color: $font-color;
+		background-color: $color;
+	}
+}
+
+
+@mixin flex-width($flex-width: 100%) {
+	width: $flex-width;
+	flex-basis: $flex-width;
+}
+
+@mixin font-smooth() {
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+/// @name Color-Dark-Hover
+/// @name Style-text
+/// @author Christian Acosta
+@mixin colorDarkHover($color, $amount) {
+	color: darken($color, $amount);
+}
+
+@mixin styleText($size, $style, $lineH, $bold, $color) {
+	font-size: $size;
+	font-style: $style;
+	line-height: $lineH;
+	font-weight: $bold;
+	color: $color;
+}
+
+@mixin title($left) {
+	@include styleText(2.3rem, normal, 45px, 500, $c-primary);
+	position: relative;
+
+	@include mediaBetween(xs, md) {
+		font-size: 1.6rem;
+		line-height: 25px;
+		margin-top: 2rem;
+	}
+
+	&::after {
+		position: absolute;
+		content: '';
+		width: 50px;
+		height: 5px;
+		top: 10px;
+		left: $left;
+		transform: translate(-50px, 50px);
+		background: $c-quaternary;
+
+		@include mediaBetween(xs, md) {
+			left: 56%;
+		}
+	}
+}

@@ -1,0 +1,24 @@
+// Logo
+.logo {
+    img {
+        width: 50px;
+        height: 50px;
+        object-fit: cover;
+    }
+
+    h2 {
+        color: $c-primary;
+    }
+}
+
+// Dropdown
+.sesion-user {
+    cursor: pointer;
+}
+
+.link-dropdown {
+    color: $c-dark;
+    &:hover {
+        color: $c-primary;
+    }
+}
