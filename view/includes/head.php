@@ -41,6 +41,9 @@
     <link rel="stylesheet" href="./view/assets/devExpress/css/timeline.css">
     <link rel="stylesheet" href="./view/assets/devExpress/css/startmin.css">
     <link rel="stylesheet" href="./view/assets/devExpress/css/morris.css">
+
+    <!-- SweetAlert Plugin JavaScript -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
 
     <!-- Font Awesome -->

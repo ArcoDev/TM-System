@@ -4,6 +4,7 @@
     session_start();
     $nameUser = $_SESSION['test']['user'] = "Christian Acosta";
     $tokenUser = $_SESSION['test']['token'];
+    // var_dump($nameUser);
     // $status = $_SESSION['test']['stToken'];
     // var_dump($status);
     if($nameUser == false){

@@ -6,3 +6,7 @@
 * Bombilla Digital | webmaster@bombilladigital.com
 ----------------------------------------------------------------------------------------------------
 */.logo img{width:50px;height:50px;-o-object-fit:cover;object-fit:cover}.logo h2{color:#304671}.sesion-user{cursor:pointer}.link-dropdown{color:#2a2b2c}.link-dropdown:hover{color:#304671}.login-box{padding:3rem 0;height:100vh}.login-box .login-form{-webkit-box-shadow:rgba(0,0,0,0.1) 0px 1px 4px,rgba(0,0,0,0.1) 0px 2px 3px;box-shadow:rgba(0,0,0,0.1) 0px 1px 4px,rgba(0,0,0,0.1) 0px 2px 3px}.card-title{color:#304671}.user-action{color:#979797;text-decoration:none;text-transform:uppercase;font-size:0.9rem}.user-action:hover{color:#304671}
+
+.swal2-container {
+    z-index: 2000!important;
+}

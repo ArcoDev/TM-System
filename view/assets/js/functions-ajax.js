@@ -1,5 +1,5 @@
-const test = document.querySelectorAll('.dx-button-content');
-console.log(test);
+// const test = document.querySelectorAll('.dx-button-content');
+// console.log(test);
 
 /*********************************************************
 PETICION AJAX PARA LA BASE DE DATOS Y PASAR DATOS POR POST
@@ -30,18 +30,32 @@ $(document).ready(function () {
                 user: user,
                 pw: pw,
                 token: tokenUsr,
-                stToken: statusToken
-            }, function (data, status) {
+                // stToken: statusToken
+            }, function (data) {
                 // console.log(data);
                 if (data != null) {
                     console.log("OK");
                     if (tokenUsr == null) {
-                        alert('Credenciales incorrectas');
-                        window.location.href = "./index.php";
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Bienvenido al sistema',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                        setTimeout(function () {
+                            window.location.href = "./index.php"
+                        }, 1000)
                     } else {
-                        alert('Bienvenido al sistema');
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Bienvenido al sistema',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                        setTimeout(function () {
+                            window.location.href = "./sistema.php"
+                        }, 1000)
                         // $('#test').html(data);
-                        window.location.href = "./sistema.php";
                     }
                 } else {
                     console.log("Error");
@@ -60,8 +74,11 @@ DE LA TABLA CON DEVEXPRESS
 *******************************************************/
 
 $(document).ready(function () {
+    //Variables globales para consultar la API
     var url = "https://192.168.1.22/OperacionesTMS";
     const valToken = $('#valToken').val();
+
+    // Traer datos de BD desde la API
     var request = $.ajax({
         url: url,
         type: "POST",
@@ -72,16 +89,25 @@ $(document).ready(function () {
         data: JSON.stringify({
             "Accion": "TMSCuentasBancoDEV",
             "Data": "<clsParametros><Opcion>C</Opcion></clsParametros>",
+            // "Data": "<clsParametros><Opcion>G</Opcion><Usuario>christian.acosta</Usuario><clsCuentasBancos><Id></Id><Cuenta></Cuenta><Activo></Activo><Nombre></Nombre><CAT_Banco>0</CAT_Banco></clsCuentasBancos></clsParametros>"
             "Token": valToken
         })
     });
+    
+    // Modificar Base de datos
+    function test() {
+        console.log(valToken);
+    }
 
     request.done(function (msg) {
         console.log(msg);
-        var ob = JSON.parse(msg.dataResponse);
+        const ob = JSON.parse(msg.dataResponse);
+        console.log(ob);
+
+
         // Table Dev Express con datos sql
         $(function () {
-            const dataGrid = $('#gridContainer').dxDataGrid({
+            $('#gridContainer').dxDataGrid({
                 dataSource: ob.Table,
                 keyExpr: 'Id',
                 allowColumnReordering: true,
@@ -116,6 +142,30 @@ $(document).ready(function () {
                         title: 'Cuentas Bancarias',
                         showTitle: true,
                         width: 700,
+                        toolbarItems: [{
+                            widget: 'dxButton',
+                            toolbar: 'bottom',
+                            location: 'after',
+                            options: {
+                                icon: 'save',
+                                text: 'Actualizar',
+                                onClick() {
+                                    test();
+                                }
+                            },
+                        }, {
+                            // widget: 'dxSelectBox',
+                            widget: 'dxButton',
+                            toolbar: 'bottom',
+                            location: 'after',
+                            options: {
+                                icon: 'close',
+                                text: "Cerrar",
+                                onClick() {
+                                    popup().hide();
+                                }
+                            }
+                        }]
                     },
                 },
                 // Sumatoria y contador
@@ -167,7 +217,11 @@ $(document).ready(function () {
         });
     });
 
-    request.fail(function (jqXHR, textStatus) {
+    request.fail(function (textStatus) {
         alert("Request failed: " + textStatus);
     });
 });
+
+/*********************************************************
+SweetAlert AJAX                            
+*******************************************************/

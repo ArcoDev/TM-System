@@ -26,7 +26,7 @@
                                     placeholder="Ingresa tu contraseña" aria-describedby="helpId">
                             </div>
                             <input type="hidden" name="token" id="token">
-                            <button id="send" type="submit" class="btn btn-primary">Enviar</button>
+                            <button id="send" class="btn btn-primary">Enviar</button>
                         </form>
                     </div>
                 </div>
