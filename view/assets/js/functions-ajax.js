@@ -11,7 +11,7 @@ $(document).ready(function () {
         // Valores del fomrulario 
         const user = $('#user').val();
         const pw = $('#pw').val();
-        console.log(`{Usuario: '${user}', Password: '${pw}' }`);
+        // console.log(`{Usuario: '${user}', Password: '${pw}' }`);
         // Peticion ajax para login
         const endPoint = "https://192.168.1.22/Access";
         var request = $.ajax({
@@ -89,23 +89,15 @@ $(document).ready(function () {
         data: JSON.stringify({
             "Accion": "TMSCuentasBancoDEV",
             "Data": "<clsParametros><Opcion>C</Opcion></clsParametros>",
-            // "Data": "<clsParametros><Opcion>G</Opcion><Usuario>christian.acosta</Usuario><clsCuentasBancos><Id></Id><Cuenta></Cuenta><Activo></Activo><Nombre></Nombre><CAT_Banco>0</CAT_Banco></clsCuentasBancos></clsParametros>"
             "Token": valToken
+
         })
     });
-    
-    // Modificar Base de datos
-    function test() {
-        console.log(valToken);
-    }
-
     request.done(function (msg) {
-        console.log(msg);
+        // console.log(msg);
         const ob = JSON.parse(msg.dataResponse);
-        console.log(ob);
 
-
-        // Table Dev Express con datos sql
+        // Inicio DevExpress
         $(function () {
             $('#gridContainer').dxDataGrid({
                 dataSource: ob.Table,
@@ -114,10 +106,21 @@ $(document).ready(function () {
                 allowColumnResizing: true,
                 columnAutoWidth: true,
                 showBorders: true,
-                focusedRowEnabled: true,
-                focusedRowKey: 4,
                 columnChooser: {
                     enabled: true,
+                },
+                // Seleccionar ID de cada renglon al cual se le da click
+                selection: {
+                    mode: 'single',
+                },
+                onSelectionChanged: function(e) {
+                    e.component.byKey(e.currentSelectedRowKeys[0]).done(rowID => {
+                        if (rowID) {
+                            var identify = rowID.Id;
+                            $('#rowID').text(identify);
+                            // console.log($("#rowID").text(identify));
+                        }
+                    });
                 },
                 // Buscador
                 searchPanel: {
@@ -147,10 +150,13 @@ $(document).ready(function () {
                             toolbar: 'bottom',
                             location: 'after',
                             options: {
-                                icon: 'save',
+                                // icon: 'save',
                                 text: 'Actualizar',
                                 onClick() {
-                                    test();
+                                    // modifyBD();
+                                    // const rowEdit = document.querySelector('.dx-link-edit');
+                                    // rowEdit.innerHTML = "Hola mundo";
+                                    // console.log(rowEdit);
                                 }
                             },
                         }, {
@@ -159,7 +165,7 @@ $(document).ready(function () {
                             toolbar: 'bottom',
                             location: 'after',
                             options: {
-                                icon: 'close',
+                                // icon: 'close',
                                 text: "Cerrar",
                                 onClick() {
                                     popup().hide();
@@ -215,13 +221,39 @@ $(document).ready(function () {
 
             });
         });
+
+        // Modificar Base de datos
+        function modifyBD() {
+            // console.log(valToken);
+            for (let i = 0; i < ob.Table.length; i += 1) {
+                console.log(ob.Table);
+            }
+            // const requestM = $.ajax({
+            //     url: url,
+            //     type: "POST",
+            //     headers: {
+            //         "Content-Type": "application/json"
+            //     },
+            //     dataType: "json",
+            //     data: JSON.stringify({
+            //         "Accion": "TMSCuentasBancoDEV",
+            //         "Data": `<clsParametros>
+            //                     <Opcion>G</Opcion>
+            //                     <Usuario>${user}</Usuario>
+            //                     <clsCuentasBancos>
+            //                         <Id></Id>
+            //                         <Cuenta></Cuenta>
+            //                         <Activo></Activo>
+            //                         <Nombre></Nombre>
+            //                         <CAT_Banco></CAT_Banco>
+            //                     </clsCuentasBancos>
+            //                 </clsParametros>`
+            //     })
+            // });
+        }
     });
 
     request.fail(function (textStatus) {
         alert("Request failed: " + textStatus);
     });
 });
-
-/*********************************************************
-SweetAlert AJAX                            
-*******************************************************/

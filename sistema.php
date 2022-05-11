@@ -52,10 +52,11 @@
         </div>
     </div>
 </nav>
-<section class="container-fluid mt-3 dx-viewport">
+<section class="container-fluid mt-3 dx-viewport rounded-3" style="box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 4px, rgba(0, 0, 0, 0.1) 0px 2px 3px">
     <div class="row p-3">
         <div class="demo-container">
             <div id="gridContainer"></div>
+            <div id="rowID"></div>
         </div>
     </div>
 </section>
