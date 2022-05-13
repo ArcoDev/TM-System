@@ -1,6 +1,10 @@
-// const test = document.querySelectorAll('.dx-button-content');
-// console.log(test);
-
+/*********************************************************
+Tooltip Bootstrap 5                               
+*******************************************************/
+var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+    return new bootstrap.Tooltip(tooltipTriggerEl)
+});
 /*********************************************************
 PETICION AJAX PARA LA BASE DE DATOS Y PASAR DATOS POR POST
 PARA EL INGRESO AL SISTEMA                               
@@ -77,7 +81,6 @@ $(document).ready(function () {
     //Variables globales para consultar la API
     var url = "https://192.168.1.22/OperacionesTMS";
     const valToken = $('#valToken').val();
-
     // Traer datos de BD desde la API
     var request = $.ajax({
         url: url,
@@ -106,14 +109,22 @@ $(document).ready(function () {
                 allowColumnResizing: true,
                 columnAutoWidth: true,
                 showBorders: true,
+                closeOnOutsideClick: true,
                 columnChooser: {
                     enabled: true,
+                },
+                // Agrupapiemnto de columnas Header
+                groupPanel: {
+                    visible: true
+                },
+                grouping: {
+                    autoExpandAll: false
                 },
                 // Seleccionar ID de cada renglon al cual se le da click
                 selection: {
                     mode: 'single',
                 },
-                onSelectionChanged: function(e) {
+                onSelectionChanged: function (e) {
                     e.component.byKey(e.currentSelectedRowKeys[0]).done(rowID => {
                         if (rowID) {
                             var identify = rowID.Id;
@@ -122,6 +133,7 @@ $(document).ready(function () {
                         }
                     });
                 },
+
                 // Buscador
                 searchPanel: {
                     visible: true,
@@ -131,48 +143,8 @@ $(document).ready(function () {
                     visible: true,
                     applyFilter: 'auto',
                 },
-                // Selection 
-                // selection: {
-                //     mode: 'multiple'
-                // },
-                // Editar campos con ventana modal
-                editing: {
-                    mode: 'popup',
-                    allowUpdating: true,
-                    allowDeleting: true,
-                    allowAdding: true,
-                    popup: {
-                        title: 'Cuentas Bancarias',
-                        showTitle: true,
-                        width: 700,
-                        toolbarItems: [{
-                            widget: 'dxButton',
-                            toolbar: 'bottom',
-                            location: 'after',
-                            options: {
-                                // icon: 'save',
-                                text: 'Actualizar',
-                                onClick() {
-                                    // modifyBD();
-                                    // const rowEdit = document.querySelector('.dx-link-edit');
-                                    // rowEdit.innerHTML = "Hola mundo";
-                                    // console.log(rowEdit);
-                                }
-                            },
-                        }, {
-                            // widget: 'dxSelectBox',
-                            widget: 'dxButton',
-                            toolbar: 'bottom',
-                            location: 'after',
-                            options: {
-                                // icon: 'close',
-                                text: "Cerrar",
-                                onClick() {
-                                    popup().hide();
-                                }
-                            }
-                        }]
-                    },
+                headerFilter: {
+                    visible: true,
                 },
                 // Sumatoria y contador
                 summary: {
@@ -199,58 +171,30 @@ $(document).ready(function () {
                 },
                 columns: [{
                         dataField: 'Cuenta',
-                        dataType: 'left'
+                        dataType: 'number',
+                        // alignment: 'right'
                     },
                     {
                         dataField: 'Nombre',
-                        dataType: 'left'
+                        dataType: 'string'
                     },
                     {
                         dataField: 'Banco',
-                        dataType: 'left'
+                        dataType: 'string'
                     },
                     {
                         dataField: 'Usuario',
-                        dataType: 'left'
+                        dataType: 'string',
+                        allowEditing: false
                     },
                     {
                         dataField: 'Fecha',
-                        dataType: 'date'
-                    }
+                        dataType: 'date',
+                        allowEditing: false
+                    },
                 ],
-
             });
         });
-
-        // Modificar Base de datos
-        function modifyBD() {
-            // console.log(valToken);
-            for (let i = 0; i < ob.Table.length; i += 1) {
-                console.log(ob.Table);
-            }
-            // const requestM = $.ajax({
-            //     url: url,
-            //     type: "POST",
-            //     headers: {
-            //         "Content-Type": "application/json"
-            //     },
-            //     dataType: "json",
-            //     data: JSON.stringify({
-            //         "Accion": "TMSCuentasBancoDEV",
-            //         "Data": `<clsParametros>
-            //                     <Opcion>G</Opcion>
-            //                     <Usuario>${user}</Usuario>
-            //                     <clsCuentasBancos>
-            //                         <Id></Id>
-            //                         <Cuenta></Cuenta>
-            //                         <Activo></Activo>
-            //                         <Nombre></Nombre>
-            //                         <CAT_Banco></CAT_Banco>
-            //                     </clsCuentasBancos>
-            //                 </clsParametros>`
-            //     })
-            // });
-        }
     });
 
     request.fail(function (textStatus) {
