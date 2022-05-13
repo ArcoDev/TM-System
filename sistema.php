@@ -83,11 +83,16 @@
             </div>
             <div class="modal-body">
                 <form method="post">
+                    <div class="alert alert-danger d-flex align-items-center justify-content-center py-1"
+                        id="alert-danger" role="alert">
+                        <i class="fa fa-warning"></i>
+                        <p class="m-0">Todos los datos son obligatorios</p>
+                    </div>
                     <div class="box-form">
                         <div class="form-group">
                             <label class="my-2" for="account">Cuenta</label>
                             <input type="text" class="form-control" name="account" id="account"
-                                aria-describedby="helpId" placeholder="Número de cuenta" required>
+                                aria-describedby="helpId" placeholder="Número de cuenta">
                         </div>
                         <div class="form-group">
                             <label class="my-2" for="nameAcount">Nombre de la cuenta</label>

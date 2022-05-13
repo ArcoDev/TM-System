@@ -1,8 +1,22 @@
 /*********************************************************
-PETICION AJAX PARA LA BASE DE DATOS Y PASAR DATOS POR POST
-PARA EL INGRESO AL SISTEMA                               
+PETICION AJAX PARA LA BASE DE DATOS Y TRANSFORMACIÓN 
+DE LA TABLA CON DEVEXPRESS                               
 *******************************************************/
+
 $(document).ready(function () {
+    /*********************************************************
+    Variables globales para consultar la API                               
+    *******************************************************/
+    const url = "https://192.168.1.22/OperacionesTMS";
+    const urlCAT = "https://192.168.1.22/Catalogos";
+
+    const valToken = $('#valToken').val();
+    const userActive = $('#userActive').text();
+
+    /*********************************************************
+    PETICION AJAX PARA LA BASE DE DATOS Y PASAR DATOS POR POST
+    PARA EL INGRESO AL SISTEMA                               
+    *******************************************************/
     $('#send').click(function (event) {
         event.preventDefault();
         // Valores del fomrulario 
@@ -63,27 +77,10 @@ $(document).ready(function () {
             console.log('Request fail: ', +textStatus);
         });
     });
-});
 
-/*********************************************************
-PETICION AJAX PARA LA BASE DE DATOS Y TRANSFORMACIÓN 
-DE LA TABLA CON DEVEXPRESS                               
-*******************************************************/
-
-$(document).ready(function () {
     /*********************************************************
-    Variables globales para consultar la API                               
-    *******************************************************/
-    const url = "https://192.168.1.22/OperacionesTMS";
-    const urlCAT = "https://192.168.1.22/Catalogos";
-    const valToken = $('#valToken').val();
-    const userActive = $('#userActive').text();
-    const account = $('#account').val();
-    const nameAcount = $('#nameAcount').val();
-    const banco = $('#banco').val();
-    /*********************************************************
-    Cargar datos para select box desde la API                               
-    *******************************************************/
+     Cargar datos para select box desde la API                               
+     *******************************************************/
     const requestSelect = $.ajax({
         url: urlCAT,
         type: 'POST',
@@ -98,24 +95,37 @@ $(document).ready(function () {
         })
     });
     requestSelect.done(function (res) {
-        console.log(res);
+        // console.log(res);
         const atributos = JSON.parse(res.dataResponse);
         $('#banco').html();
         for (let i = 0; i < atributos.Table.length; i += 1) {
             const optionSel = `<option value="${atributos.Table[i].Id}">
                                     ${atributos.Table[i].Nombre}
-                                </option>`;
+                                    </option>`;
             $('#banco').append(optionSel);
         }
     });
     /*********************************************************
     Insertar registro BD                               
-    *******************************************************/
+     *******************************************************/
     $('#insertData').click(function () {
-
-        // const account = $('#account').val();
-        // const nameAcount = $('#nameAcount').val();
-        // const banco = $('#banco').val();
+        const account = $('#account').val();
+        const nameAcount = $('#nameAcount').val();
+        const banco = $('#banco').val();
+        const alert = document.getElementById('alert-danger');
+        /*********************************************************
+        Validacion formulario                             
+        *******************************************************/
+        // console.log(account);
+        // if(account.length === '') {
+        //     console.log('Los datos estan vacios');
+        // } else {
+        //     console.log('Datos correctos');
+        //     alert.classList.add('animaAlert');
+        //     setTimeout(() => {
+        //         alert.classList.remove('animaAlert');
+        //     }, 2500);
+        // }
         $.ajax({
             url: url,
             type: "POST",
@@ -142,7 +152,7 @@ $(document).ready(function () {
                     icon: 'success',
                     title: 'Se agrego correctamente',
                     showConfirmButton: false,
-                    timer: 1000
+                    timer: 1200
                 });
             }
         });
@@ -226,6 +236,7 @@ $(document).ready(function () {
                 headerFilter: {
                     visible: true,
                 },
+                // 
                 // Sumatoria y contador
                 summary: {
                     totalItems: [{
