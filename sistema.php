@@ -56,16 +56,13 @@
     style="box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 4px, rgba(0, 0, 0, 0.1) 0px 2px 3px">
     <div class="row p-3">
         <div class="actions my-3">
-            <button type="button" class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="top"
-                title="Agregar">
+            <button type="button" class="btn btn-actions" data-bs-toggle="modal" data-bs-target="#add" title="Agregar">
                 <i class="fa fa-plus"></i>
             </button>
-            <button type="button" class="btn btn-warning" data-bs-toggle="tooltip" data-bs-placement="top"
-                title="Editar">
+            <button type="button" class="btn btn-actions" data-bs-toggle="modal" data-bs-target="#edit" title="Editar">
                 <i class="fa fa-pencil"></i>
             </button>
-            <button type="button" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="top"
-                title="Eliminar">
+            <button type="button" class="btn btn-actions" title="Eliminar">
                 <i class="fa fa-trash"></i>
             </button>
         </div>
@@ -76,4 +73,59 @@
     </div>
 </section>
 
-<!-- Modal para -->
+<!-- Modal agregar nuevo registro -->
+<div class="modal fade" id="add" tabindex="-1" aria-labelledby="addLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addLabel">Nuevo Registro</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="post">
+                    <div class="box-form">
+                        <div class="form-group">
+                            <label class="my-2" for="account">Cuenta</label>
+                            <input type="text" class="form-control" name="account" id="account"
+                                aria-describedby="helpId" placeholder="Número de cuenta" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="my-2" for="nameAcount">Nombre de la cuenta</label>
+                            <input type="text" class="form-control" name="nameAcount" id="nameAcount"
+                                aria-describedby="helpId" placeholder="Ingresa el nombre de la cuenta" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="my-2" for="banco">Banco</label>
+                            <select class="form-select" name="banco" id="banco" required>
+                                <option>Selecciona</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-actions" id="insertData">Guardar</button>
+                <button type="button" class="btn btn-actions" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal editar registro -->
+<div class="modal fade" id="edit" tabindex="-1" aria-labelledby="editLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editLabel">Editar</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h1>Edit</h1>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-actions" id="updateData">Actualizar</button>
+                <button type="button" class="btn btn-actions" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>

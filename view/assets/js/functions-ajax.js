@@ -1,11 +1,4 @@
 /*********************************************************
-Tooltip Bootstrap 5                               
-*******************************************************/
-var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-    return new bootstrap.Tooltip(tooltipTriggerEl)
-});
-/*********************************************************
 PETICION AJAX PARA LA BASE DE DATOS Y PASAR DATOS POR POST
 PARA EL INGRESO AL SISTEMA                               
 *******************************************************/
@@ -78,9 +71,91 @@ DE LA TABLA CON DEVEXPRESS
 *******************************************************/
 
 $(document).ready(function () {
-    //Variables globales para consultar la API
-    var url = "https://192.168.1.22/OperacionesTMS";
+    /*********************************************************
+    Variables globales para consultar la API                               
+    *******************************************************/
+    const url = "https://192.168.1.22/OperacionesTMS";
+    const urlCAT = "https://192.168.1.22/Catalogos";
     const valToken = $('#valToken').val();
+    const userActive = $('#userActive').text();
+    const account = $('#account').val();
+    const nameAcount = $('#nameAcount').val();
+    const banco = $('#banco').val();
+    /*********************************************************
+    Cargar datos para select box desde la API                               
+    *******************************************************/
+    const requestSelect = $.ajax({
+        url: urlCAT,
+        type: 'POST',
+        headers: {
+            "Content-Type": "application/json"
+        },
+        dataType: 'json',
+        data: JSON.stringify({
+            "Accion": "CORECatalogos",
+            "Data": "<clsParametros><Opcion>CTC</Opcion><ClaveTipo>Bancos_TMS</ClaveTipo></clsParametros>",
+            "Token": valToken
+        })
+    });
+    requestSelect.done(function (res) {
+        console.log(res);
+        const atributos = JSON.parse(res.dataResponse);
+        $('#banco').html();
+        for (let i = 0; i < atributos.Table.length; i += 1) {
+            const optionSel = `<option value="${atributos.Table[i].Id}">
+                                    ${atributos.Table[i].Nombre}
+                                </option>`;
+            $('#banco').append(optionSel);
+        }
+    });
+    /*********************************************************
+    Insertar registro BD                               
+    *******************************************************/
+    $('#insertData').click(function () {
+
+        // const account = $('#account').val();
+        // const nameAcount = $('#nameAcount').val();
+        // const banco = $('#banco').val();
+        $.ajax({
+            url: url,
+            type: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            dataType: "json",
+            data: JSON.stringify({
+                "Accion": "TMSCuentasBancoDEV",
+                "Data": `<clsParametros>
+                            <Opcion>G</Opcion>
+                            <Usuario>${userActive}</Usuario>
+                            <clsCuentasBancos>
+                                <Id>0</Id>
+                                <Cuenta>${account}</Cuenta>
+                                <Nombre>${nameAcount}</Nombre>
+                                <CAT_Banco>${banco}</CAT_Banco>
+                            </clsCuentasBancos>
+                        </clsParametros>`,
+                "Token": valToken
+            }),
+            success: function () {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Se agrego correctamente',
+                    showConfirmButton: false,
+                    timer: 1000
+                });
+            }
+        });
+    });
+
+    /*********************************************************
+    Actualizar registro BD                               
+    *******************************************************/
+
+
+    /*********************************************************
+    Eliminar registro BD                               
+    *******************************************************/
     // Traer datos de BD desde la API
     var request = $.ajax({
         url: url,
@@ -99,7 +174,7 @@ $(document).ready(function () {
     request.done(function (msg) {
         // console.log(msg);
         const ob = JSON.parse(msg.dataResponse);
-
+        // console.log(ob.Table);
         // Inicio DevExpress
         $(function () {
             $('#gridContainer').dxDataGrid({
@@ -113,12 +188,17 @@ $(document).ready(function () {
                 columnChooser: {
                     enabled: true,
                 },
-                // Agrupapiemnto de columnas Header
+                // Agrupamiento de columnas Header
                 groupPanel: {
                     visible: true
                 },
                 grouping: {
                     autoExpandAll: false
+                },
+                // Exposrtar tabla a excel
+                export: {
+                    enabled: true,
+                    allowExportSelectedData: true,
                 },
                 // Seleccionar ID de cada renglon al cual se le da click
                 selection: {
@@ -171,8 +251,8 @@ $(document).ready(function () {
                 },
                 columns: [{
                         dataField: 'Cuenta',
-                        dataType: 'number',
-                        // alignment: 'right'
+                        dataType: 'string',
+                        alignment: 'left'
                     },
                     {
                         dataField: 'Nombre',
@@ -190,13 +270,13 @@ $(document).ready(function () {
                     {
                         dataField: 'Fecha',
                         dataType: 'date',
-                        allowEditing: false
+                        allowEditing: false,
+                        format: 'dd/MMM/yyyy',
                     },
                 ],
             });
         });
     });
-
     request.fail(function (textStatus) {
         alert("Request failed: " + textStatus);
     });

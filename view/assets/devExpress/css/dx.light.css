@@ -9202,7 +9202,7 @@
 .dx-datagrid .dx-datagrid-headers .dx-header-filter,
 .dx-datagrid .dx-datagrid-headers .dx-header-row > td {
   outline: 0;
-}
+/* background: red; *//* text-align: center; */}
 .dx-datagrid .dx-datagrid-headers.dx-state-focused .dx-header-row td .dx-header-filter:focus,
 .dx-datagrid .dx-datagrid-headers.dx-state-focused .dx-header-row td:focus {
   outline: #5c95c5 solid 2px;
