@@ -7,8 +7,7 @@ $(document).ready(function () {
     /*********************************************************
     Variables globales para consultar la API                               
     *******************************************************/
-    const url = "https://192.168.1.22/OperacionesTMS";
-    const urlCAT = "https://192.168.1.22/Catalogos";
+   const url = 'https://192.168.1.22/'
 
     const valToken = $('#valToken').val();
     const userActive = $('#userActive').text();
@@ -22,11 +21,11 @@ $(document).ready(function () {
         // Valores del fomrulario 
         const user = $('#user').val();
         const pw = $('#pw').val();
-        // console.log(`{Usuario: '${user}', Password: '${pw}' }`);
+
         // Peticion ajax para login
-        const endPoint = "https://192.168.1.22/Access";
         var request = $.ajax({
-            url: endPoint,
+            // url: endPoint,
+            url: `${url}/Access`,
             type: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -82,7 +81,7 @@ $(document).ready(function () {
      Cargar datos para select box desde la API                               
      *******************************************************/
     const requestSelect = $.ajax({
-        url: urlCAT,
+        url: `${url}/Catalogos`,
         type: 'POST',
         headers: {
             "Content-Type": "application/json"
@@ -95,7 +94,6 @@ $(document).ready(function () {
         })
     });
     requestSelect.done(function (res) {
-        // console.log(res);
         const atributos = JSON.parse(res.dataResponse);
         $('#banco').html();
         for (let i = 0; i < atributos.Table.length; i += 1) {
@@ -127,7 +125,8 @@ $(document).ready(function () {
         //     }, 2500);
         // }
         $.ajax({
-            url: url,
+            // url: url,
+            url: `${url}/OperacionesTMS`,
             type: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -166,9 +165,12 @@ $(document).ready(function () {
     /*********************************************************
     Eliminar registro BD                               
     *******************************************************/
-    // Traer datos de BD desde la API
+
+    /*********************************************************
+    Traer datos de BD desde la API
+    *******************************************************/
     var request = $.ajax({
-        url: url,
+        url: `${url}/OperacionesTMS`,
         type: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -223,7 +225,14 @@ $(document).ready(function () {
                         }
                     });
                 },
-
+                // Paginador
+                paging: {
+                    pageSize: 10
+                },
+                pager: {
+                    showPageSizeSelector: true,
+                    allowedPageSizes: [10, 25, 50, 100],
+                },
                 // Buscador
                 searchPanel: {
                     visible: true,
