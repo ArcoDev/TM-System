@@ -93,11 +93,10 @@ $(document).ready(function () {
         });
         requestSelect.done(function (res) {
             const atributos = JSON.parse(res.dataResponse);
-            $('.banco').html();
             for (let i = 0; i < atributos.Table.length; i += 1) {
                 const optionSel = `<option value="${atributos.Table[i].Id}">
-                                       ${atributos.Table[i].Nombre}
-                                       </option>`;
+                                        ${atributos.Table[i].Nombre}
+                                    </option>`;
                 $('.banco').append(optionSel);
             }
         });
@@ -168,39 +167,69 @@ $(document).ready(function () {
         /*********************************************************
         Actualizar registro BD                               
         *******************************************************/
+        const idRowSelection = $('#rowID').text();
         $('#loadForm').html();
-        const testJS = "Value desde JS";
-        const form = `<form method="post" id="formAdd">
-                        <div class="alert alert-danger d-flex align-items-center justify-content-center py-1"
-                            id="alert-danger" role="alert">
-                            <i class="fa fa-warning"></i>
-                            <p class="m-0">Todos los datos son obligatorios</p>
-                        </div>
-                        <div class="box-form">
-                            <div class="form-group">
-                                <label class="my-2" for="account">Cuenta</label>
-                                <input type="text" class="form-control" name="account" id="account" aria-describedby="helpId" 
-                                placeholder="Número de cuenta" value="${testJS}" readonly>
-                            </div>
-                            <div class="form-group">
-                                <label class="my-2" for="nameAcount">Nombre de la cuenta</label>
-                                <input type="text" class="form-control" name="nameAcount" id="nameAcount" aria-describedby="helpId" 
-                                placeholder="Ingresa el nombre de la cuenta" value="${testJS}">
-                            </div>
-                            <div class="form-group">
-                                <label class="my-2" for="banco">Banco</label>
-                                <select class="form-select banco" name="banco" id="banco">
-                                    <option>Selecciona</option>
-                                </select>
-                            </div>
-                        </div>
-                    </form>`;
-        $('#loadForm').append(form);
-        let testID = $('#rowID').text();
-        console.log(testID);
-    }
-    updateData();
+        var request = $.ajax({
+            url: `${url}/OperacionesTMS`,
+            type: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            dataType: "json",
+            data: JSON.stringify({
+                "Accion": "TMSCuentasBancoDEV",
+                "Data": `<clsParametros>
+                            <Opcion>CI</Opcion>
+                            <clsCuentasBancos>
+                                <Id>${idRowSelection}</Id>
+                            </clsCuentasBancos>
+                        </clsParametros>`,
+                "Token": valToken
 
+            })
+        });
+        request.done(function (resID) {
+            const rowID = JSON.parse(resID.dataResponse);
+            console.log(rowID);
+            const responseArray = rowID.Table[0];
+            loadSelectBox();
+            // Modal
+            const modal = `<div class="modal fade" id="modal" tabindex="-1" aria-labelledby="editLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="editLabel">Editar</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body" id="loadForm">
+                                                    <div class="form-group">
+                                                        <label class="my-2" for="account">Cuenta</label>
+                                                        <input type="text" class="form-control" name="account" id="account"
+                                                        aria-describedby="helpId" value = "${responseArray.Cuenta}" readonly />
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="my-2" for="nameAcount">Nombre de la cuenta</label>
+                                                        <input type="text" class="form-control" name="nameAcount" id="nameAcount"
+                                                            aria-describedby="helpId" value = "${responseArray.Nombre}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="my-2" for="banco">Banco</label>
+                                                        <select class="form-select banco" name="banco" id="banco">
+                                                            
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-actions" id="updateData">Actualizar</button>
+                                                    <button type="button" class="btn btn-actions" data-bs-dismiss="modal">Cerrar</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>`;
+            $('#testModal').append(modal);
+            // $('#banco').val(responseArray.CAT_Banco);    
+        });
+    }
 
     function deleteData() {
         /*********************************************************
@@ -298,8 +327,8 @@ $(document).ready(function () {
                             if (rowID) {
                                 var identify = rowID.Id;
                                 $('#rowID').text(identify);
-                                // console.log(identify);
-                                // console.log($("#rowID").text(identify));
+                                $('#testModal').html('');
+                                updateData();
                             }
                         });
                     },

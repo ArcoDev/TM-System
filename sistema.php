@@ -2,7 +2,7 @@
     include_once './view/includes/head.php';
     include_once './post.php';
     session_start();
-    $nameUser = $_SESSION['test']['user'];
+    $nameUser = $_SESSION['test']['user'] = 'Christian Acosta';
     $tokenUser = $_SESSION['test']['token'];
     // var_dump($nameUser);
     // $status = $_SESSION['test']['stToken'];
@@ -59,10 +59,12 @@
             <button type="button" class="btn btn-actions" data-bs-toggle="modal" data-bs-target="#add" title="Agregar">
                 <i class="fa fa-plus"></i>
             </button>
-            <button id="update" type="button" class="btn btn-actions" data-bs-toggle="modal" data-bs-target="#edit"
-                title="Editar">
-                <i class="fa fa-pencil"></i>
+            <span id="modalID">
+                <button id="update" type="button" class="btn btn-actions" data-bs-toggle="modal"
+                    data-bs-target="#modal" title="Editar">
+                    <i class="fa fa-pencil"></i>
             </button>
+            </span>
             <button id="delete" type="button" class="btn btn-actions" title="Eliminar">
                 <i class="fa fa-trash"></i>
             </button>
@@ -70,13 +72,6 @@
         <div class="demo-container">
             <div id="gridContainer"></div>
             <div id="rowID"></div>
-            <!-- <div class="options">
-                <div class="caption">Options</div>
-                <div class="option">
-                    <label for="selectInput">Language</label>
-                    <div id="selectBox"></div>
-                </div>
-            </div> -->
         </div>
     </div>
 </section>
@@ -125,19 +120,4 @@
 </div>
 
 <!-- Modal editar registro -->
-<div class="modal fade" id="edit" tabindex="-1" aria-labelledby="editLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editLabel">Editar</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body" id="loadForm">
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-actions" id="updateData">Actualizar</button>
-                <button type="button" class="btn btn-actions" data-bs-dismiss="modal">Cerrar</button>
-            </div>
-        </div>
-    </div>
-</div>
+<div id="testModal"></div>
