@@ -52,23 +52,31 @@
         </div>
     </div>
 </nav>
-<section class="container-fluid mt-3 dx-viewport rounded-3"
+<section class="container-fluid dx-viewport rounded"
     style="box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 4px, rgba(0, 0, 0, 0.1) 0px 2px 3px">
     <div class="row p-3">
         <div class="actions my-3">
             <button type="button" class="btn btn-actions" data-bs-toggle="modal" data-bs-target="#add" title="Agregar">
                 <i class="fa fa-plus"></i>
             </button>
-            <button type="button" class="btn btn-actions" data-bs-toggle="modal" data-bs-target="#edit" title="Editar">
+            <button id="update" type="button" class="btn btn-actions" data-bs-toggle="modal" data-bs-target="#edit"
+                title="Editar">
                 <i class="fa fa-pencil"></i>
             </button>
-            <button type="button" class="btn btn-actions" title="Eliminar">
+            <button id="delete" type="button" class="btn btn-actions" title="Eliminar">
                 <i class="fa fa-trash"></i>
             </button>
         </div>
         <div class="demo-container">
             <div id="gridContainer"></div>
             <div id="rowID"></div>
+            <!-- <div class="options">
+                <div class="caption">Options</div>
+                <div class="option">
+                    <label for="selectInput">Language</label>
+                    <div id="selectBox"></div>
+                </div>
+            </div> -->
         </div>
     </div>
 </section>
@@ -82,7 +90,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form method="post">
+                <form method="post" id="formAdd">
                     <div class="alert alert-danger d-flex align-items-center justify-content-center py-1"
                         id="alert-danger" role="alert">
                         <i class="fa fa-warning"></i>
@@ -97,11 +105,11 @@
                         <div class="form-group">
                             <label class="my-2" for="nameAcount">Nombre de la cuenta</label>
                             <input type="text" class="form-control" name="nameAcount" id="nameAcount"
-                                aria-describedby="helpId" placeholder="Ingresa el nombre de la cuenta" required>
+                                aria-describedby="helpId" placeholder="Ingresa el nombre de la cuenta">
                         </div>
                         <div class="form-group">
                             <label class="my-2" for="banco">Banco</label>
-                            <select class="form-select" name="banco" id="banco" required>
+                            <select class="form-select banco" name="banco" id="banco">
                                 <option>Selecciona</option>
                             </select>
                         </div>
@@ -124,8 +132,7 @@
                 <h5 class="modal-title" id="editLabel">Editar</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <h1>Edit</h1>
+            <div class="modal-body" id="loadForm">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-actions" id="updateData">Actualizar</button>
