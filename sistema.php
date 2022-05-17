@@ -26,7 +26,7 @@
         </div>
         <div class="col-lg-6 d-flex justify-content-end">
             <div class="sesion-user d-flex align-items-center" style="gap: 0.5rem;">
-                <div class="dropdown" onclick="this.blur();">
+                <div class="dropdown">
                     <button class="btn btn-default dropdown-toggle d-flex align-items-center gap-1" type="button"
                         id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                         <p id="userActive" class="m-0"><?php echo $nameUser ?></p>

@@ -30,3 +30,10 @@ td.dx-datagrid-action {
 #rowID {
     display: none;
 }
+.data-control {
+    position: absolute;
+    top: 0px;
+    z-index: 200;
+    left: 30px;
+    background: #fff;
+}

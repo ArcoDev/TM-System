@@ -1,4 +1,3 @@
-
 $(document).ready(function () {
     /*********************************************************
     Variables globales para consultar la API                               
@@ -193,7 +192,7 @@ $(document).ready(function () {
         });
         request.done(function (resID) {
             const rowID = JSON.parse(resID.dataResponse);
-            console.log(rowID);
+            // console.log(rowID);
             const responseArray = rowID.Table[0];
             loadSelectBox();
             // Modal
@@ -225,8 +224,9 @@ $(document).ready(function () {
                                                 </div>
                                             </form>
                                         </div>
-                                        <div class="modal-footer d-flex flex-column align-items-start justify-content-start">
-                                            <div class="form-group">
+                                        <div class="modal-footer d-flex flex-column align-items-start justify-content-start" style="position:relative; overflow: hidden!important;">
+                                            <p class="data-control">Datos de control</p>
+                                            <div class="form-group w-100 border py-4 rounded-1 d-flex justify-content-center">
                                                 <input disabled type="text" value="${userActive}">
                                                 <input disabled type="text" value="${formatDate}">
                                             </div>
@@ -238,7 +238,7 @@ $(document).ready(function () {
                                     </div>
                                 </div>
                             </div>`;
-            $('#testModal').append(modal); 
+            $('#testModal').append(modal);
             // AJAX Update
             function ajaxUpdate() {
                 const bancoUP = $('#bancoUP').val();
@@ -279,9 +279,24 @@ $(document).ready(function () {
                 });
             }
 
+            // Abrir modal al dar click al boton de editar
             $('#updateData').click((e) => {
                 e.preventDefault();
                 ajaxUpdate();
+            });
+            
+            // Abrir modal al dar enter en la fila seleccionada
+            const keyupSelector = document.querySelector('.dx-selection');
+            keyupSelector.addEventListener('keyup', (e) => {
+                var keycode = e.keyCode || e.which;
+                if (keycode == 13) {
+                    $('#modal').modal('show');
+                }
+            });
+
+            // Abrir modal al dar doble click a la fila seleccionada
+            keyupSelector.addEventListener('dblclick', (e) => {
+                $('#modal').modal('show');
             });
         });
     }
