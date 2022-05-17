@@ -60,10 +60,10 @@
                 <i class="fa fa-plus"></i>
             </button>
             <span id="modalID">
-                <button id="update" type="button" class="btn btn-actions" data-bs-toggle="modal"
-                    data-bs-target="#modal" title="Editar">
+                <button id="update" type="button" class="btn btn-actions" data-bs-toggle="modal" data-bs-target="#modal"
+                    title="Editar">
                     <i class="fa fa-pencil"></i>
-            </button>
+                </button>
             </span>
             <button id="delete" type="button" class="btn btn-actions" title="Eliminar">
                 <i class="fa fa-trash"></i>
@@ -82,6 +82,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="addLabel">Nuevo Registro</h5>
+
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -111,9 +112,15 @@
                     </div>
                 </form>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-actions" id="insertData">Guardar</button>
-                <button type="button" class="btn btn-actions" data-bs-dismiss="modal">Cerrar</button>
+            <div class="modal-footer d-flex flex-column align-items-start justify-content-start">
+                <div class="form-group">
+                    <input disabled type="text" value="christian.acosta">
+                    <input disabled type="text" value="17/may/2022">
+                </div>
+                <div class="form-group d-flex w-100 justify-content-end">
+                    <button type="button" class="btn btn-actions" id="insertData">Guardar</button>
+                    <button type="button" class="btn btn-actions" data-bs-dismiss="modal">Cerrar</button>
+                </div>
             </div>
         </div>
     </div>

@@ -17,6 +17,9 @@
 
     <!-- Jquery -->
     <script src="./view/assets/js/jquery.3.6.0.min.js"></script>
+    
+    <!-- Moment JS -->
+    <script src="./view/assets/js/moment.min.js"></script>
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="./view/assets/bootstrap/css/bootstrap.min.css">

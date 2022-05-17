@@ -1,3 +1,4 @@
+
 $(document).ready(function () {
     /*********************************************************
     Variables globales para consultar la API                               
@@ -192,9 +193,11 @@ $(document).ready(function () {
         });
         request.done(function (resID) {
             const rowID = JSON.parse(resID.dataResponse);
+            console.log(rowID);
             const responseArray = rowID.Table[0];
             loadSelectBox();
             // Modal
+            const formatDate = moment(responseArray.Fecha).format("DD/MMM/YYYY");
             const modal = `<div class="modal fade" id="modal" tabindex="-1" aria-labelledby="editLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
@@ -222,9 +225,15 @@ $(document).ready(function () {
                                                 </div>
                                             </form>
                                         </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-actions" id="updateData">Actualizar</button>
-                                            <button type="button" class="btn btn-actions" data-bs-dismiss="modal">Cerrar</button>
+                                        <div class="modal-footer d-flex flex-column align-items-start justify-content-start">
+                                            <div class="form-group">
+                                                <input disabled type="text" value="${userActive}">
+                                                <input disabled type="text" value="${formatDate}">
+                                            </div>
+                                            <div class="form-group d-flex w-100 justify-content-end">
+                                                <button type="button" class="btn btn-actions" id="updateData">Actualizar</button>
+                                                <button type="button" class="btn btn-actions" data-bs-dismiss="modal">Cerrar</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -264,7 +273,7 @@ $(document).ready(function () {
                             timer: 1200
                         });
                         $('#modal').modal('hide');
-                        loadDevExpress
+                        loadDevExpress();
                         // location.reload();
                     }
                 });
