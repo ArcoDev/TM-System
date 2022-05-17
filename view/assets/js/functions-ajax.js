@@ -43,7 +43,7 @@ $(document).ready(function () {
                         if (tokenUsr == null) {
                             Swal.fire({
                                 icon: 'error',
-                                title: 'Bienvenido al sistema',
+                                title: 'No se pudo entrar al sistema, verifique sus credenciales o contacte al administrador',
                                 showConfirmButton: false,
                                 timer: 1500
                             });
@@ -97,6 +97,7 @@ $(document).ready(function () {
                 const optionSel = `<option value="${atributos.Table[i].Id}">
                                         ${atributos.Table[i].Nombre}
                                     </option>`;
+                $('.banco-up').append(optionSel);
                 $('.banco').append(optionSel);
             }
         });
@@ -163,6 +164,7 @@ $(document).ready(function () {
     }
     insertData();
 
+
     function updateData() {
         /*********************************************************
         Actualizar registro BD                               
@@ -190,68 +192,132 @@ $(document).ready(function () {
         });
         request.done(function (resID) {
             const rowID = JSON.parse(resID.dataResponse);
-            console.log(rowID);
             const responseArray = rowID.Table[0];
             loadSelectBox();
             // Modal
             const modal = `<div class="modal fade" id="modal" tabindex="-1" aria-labelledby="editLabel" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="editLabel">Editar</h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body" id="loadForm">
-                                                    <div class="form-group">
-                                                        <label class="my-2" for="account">Cuenta</label>
-                                                        <input type="text" class="form-control" name="account" id="account"
-                                                        aria-describedby="helpId" value = "${responseArray.Cuenta}" readonly />
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="my-2" for="nameAcount">Nombre de la cuenta</label>
-                                                        <input type="text" class="form-control" name="nameAcount" id="nameAcount"
-                                                            aria-describedby="helpId" value = "${responseArray.Nombre}">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="my-2" for="banco">Banco</label>
-                                                        <select class="form-select banco" name="banco" id="banco">
-                                                            
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-actions" id="updateData">Actualizar</button>
-                                                    <button type="button" class="btn btn-actions" data-bs-dismiss="modal">Cerrar</button>
-                                                </div>
-                                            </div>
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="editLabel">Editar</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
-                                    </div>`;
-            $('#testModal').append(modal);
-            // $('#banco').val(responseArray.CAT_Banco);    
+                                        <div class="modal-body" id="loadForm">
+                                            <form method="post" id="formUpdate">
+                                                <div class="form-group">
+                                                    <label class="my-2" for="account">Cuenta</label>
+                                                    <input type="text" class="form-control" name="account" id="account"
+                                                    aria-describedby="helpId" value="${responseArray.Cuenta}" readonly>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="my-2" for="nameAcount">Nombre de la cuenta</label>
+                                                    <input type="text" class="form-control" name="nameAccountUP" id="nameAccountUP"
+                                                    aria-describedby="helpId" value="${responseArray.Nombre}">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="my-2" for="banco">Banco</label>
+                                                    <select class="form-select banco-up" name="banco" id="bancoUP">
+                                                        <option value="${responseArray.CAT_Banco}">${responseArray.banco}</option>
+                                                    </select>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-actions" id="updateData">Actualizar</button>
+                                            <button type="button" class="btn btn-actions" data-bs-dismiss="modal">Cerrar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>`;
+            $('#testModal').append(modal); 
+            // AJAX Update
+            function ajaxUpdate() {
+                const bancoUP = $('#bancoUP').val();
+                const accountNameUP = $('#nameAccountUP').val();
+                $.ajax({
+                    url: `${url}/OperacionesTMS`,
+                    type: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    dataType: "json",
+                    data: JSON.stringify({
+                        "Accion": "TMSCuentasBancoDEV",
+                        "Data": `<clsParametros>
+                                    <Opcion>G</Opcion>
+                                    <Usuario>${userActive}</Usuario>
+                                    <clsCuentasBancos>
+                                        <Id>${responseArray.Id}</Id>
+                                        <Cuenta>${responseArray.Cuenta}</Cuenta>
+                                        <Nombre>${accountNameUP}</Nombre>
+                                        <CAT_Banco>${bancoUP}</CAT_Banco>
+                                        <Activo>${responseArray.Activo}</Activo>
+                                    </clsCuentasBancos>
+                                </clsParametros>`,
+                        "Token": valToken
+                    }),
+                    success: function () {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'El registro se actualizo correctamente',
+                            showConfirmButton: false,
+                            timer: 1200
+                        });
+                        $('#modal').modal('hide');
+                        loadDevExpress
+                        // location.reload();
+                    }
+                });
+            }
+
+            $('#updateData').click((e) => {
+                e.preventDefault();
+                ajaxUpdate();
+            });
         });
     }
 
-    function deleteData() {
-        /*********************************************************
-        Eliminar registro BD                               
-        *******************************************************/
-        $('#delete').click(() => {
-            Swal.fire({
-                title: '¿Estas Seguro que deseas eliminar el registro?',
-                icon: 'info',
-                showDenyButton: true,
-                showCancelButton: false,
-                confirmButtonText: 'Eliminar',
-                denyButtonText: `Cancelar`,
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    console.log('Eliminado')
-                    Swal.fire('Se elimino correctamente!', '', 'success');
-                }
-            })
-        });
-    }
-    deleteData();
+    /*********************************************************
+    Eliminar registro BD                               
+    *******************************************************/
+    $('#delete').click(() => {
+        const idRowDelete = $('#rowID').text();
+        Swal.fire({
+            title: '¿Estas Seguro que deseas eliminar el registro?',
+            icon: 'info',
+            showDenyButton: true,
+            showCancelButton: false,
+            confirmButtonText: 'Eliminar',
+            denyButtonText: `Cancelar`,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: `${url}/OperacionesTMS`,
+                    type: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    dataType: "json",
+                    data: JSON.stringify({
+                        "Accion": "TMSCuentasBancoDEV",
+                        "Data": `<clsParametros>
+                                        <Opcion>G</Opcion>
+                                        <Usuario>${userActive}</Usuario>
+                                        <clsCuentasBancos>
+                                            <Id>${idRowDelete}</Id>
+                                            <Activo>false</Activo>
+                                        </clsCuentasBancos>
+                                    </clsParametros>`,
+                        "Token": valToken
+                    }),
+                    success: function () {
+                        Swal.fire('El registro se elimino correctamente!', '', 'success');
+                        loadDevExpress();
+                    }
+                });
+            }
+        })
+    });
 
     function loadDevExpress() {
         /*********************************************************

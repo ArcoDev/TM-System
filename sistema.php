@@ -2,7 +2,7 @@
     include_once './view/includes/head.php';
     include_once './post.php';
     session_start();
-    $nameUser = $_SESSION['test']['user'] = 'Christian Acosta';
+    $nameUser = $_SESSION['test']['user'];
     $tokenUser = $_SESSION['test']['token'];
     // var_dump($nameUser);
     // $status = $_SESSION['test']['stToken'];
