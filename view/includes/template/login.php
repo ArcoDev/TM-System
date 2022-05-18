@@ -17,13 +17,11 @@
                         <form method="POST">
                             <div class="form-group my-4">
                                 <label for="user">Usuario</label>
-                                <input type="text" name="user" id="user" class="form-control"
-                                    placeholder="Ingresa tu usuario" aria-describedby="helpId">
+                                <input type="text" name="user" id="user" class="form-control"  placeholder="Ingresa tu usuario">
                             </div>
                             <div class="form-group my-4">
                                 <label for="password">Password</label>
-                                <input type="password" name="pw" id="pw" class="form-control"
-                                    placeholder="Ingresa tu contraseña" aria-describedby="helpId">
+                                <input type="password" name="pw" id="pw" class="form-control" autocomplete="off" placeholder="Ingresa tu contraseña">
                             </div>
                             <input type="hidden" name="token" id="token">
                             <button id="send" class="btn btn-primary">Enviar</button>

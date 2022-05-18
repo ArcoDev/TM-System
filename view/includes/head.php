@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sytem TM</title>
+    <title>TM System</title>
     <!-- Favicon -->
     <link rel="shortcut icon" href="./view/assets/img/transmontes.ico" type="image/x-icon">
 
@@ -17,7 +17,7 @@
 
     <!-- Jquery -->
     <script src="./view/assets/js/jquery.3.6.0.min.js"></script>
-    
+
     <!-- Moment JS -->
     <script src="./view/assets/js/moment.min.js"></script>
 
@@ -55,8 +55,10 @@
 
     <!-- Traduccion componentes devExpress -->
     <script src="https://cdn3.devexpress.com/jslib/21.2.7/js/localization/dx.messages.es.js"></script>
-    <script> DevExpress.localization.locale(navigator.language); </script>
-    
+    <script>
+        DevExpress.localization.locale(navigator.language);
+    </script>
+
     <!-- Font Awesome -->
     <link rel="stylesheet" href="./view/assets/devExpress/css/font-awasome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"

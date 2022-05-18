@@ -7,13 +7,22 @@
     }
 
     h2 {
-        color: $c-primary;
+        color: $c-secondary;
     }
 }
 
 // Dropdown
 .sesion-user {
     cursor: pointer;
+}
+
+#userActive {
+    color: $c-secondary;
+}
+
+.fa-user {
+    color: $c-secondary;
+    margin-right: 0.2rem;
 }
 
 .link-dropdown {

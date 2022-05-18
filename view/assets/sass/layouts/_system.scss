@@ -1,3 +1,6 @@
+.system-layout {
+    margin-top: 6rem;
+}
 .btn-actions {
     border: 1px solid #ccc !important;
 
@@ -36,4 +39,15 @@ td.dx-datagrid-action {
     z-index: 200;
     left: 30px;
     background: #fff;
+}
+
+.head-module {
+    position: absolute;
+    padding: 0.5rem 1rem;
+    left: 10px;
+    top: -1px;
+    font-size: 1rem;
+    background: #fff;
+    box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px, rgba(0, 0, 0, 0.1) 0px 2px 3px;
+    border-radius: 12px 7px;
 }

@@ -45,7 +45,7 @@ $(document).ready(function () {
                                 icon: 'error',
                                 title: 'No se pudo entrar al sistema, verifique sus credenciales o contacte al administrador',
                                 showConfirmButton: false,
-                                timer: 1500
+                                timer: 2000
                             });
                             setTimeout(function () {
                                 window.location.href = "./index.php"
@@ -108,35 +108,45 @@ $(document).ready(function () {
         /*********************************************************
         Insertar registro BD                               
         *******************************************************/
+
         $('#insertData').click(function () {
             const account = $('#account').val();
             const nameAcount = $('#nameAcount').val();
             const banco = $('#banco').val();
             const alert = document.getElementById('alert-danger');
+            const textAlert = document.querySelector('.textAlert');
             /*********************************************************
             Validacion formulario                             
             *******************************************************/
-            // console.log(account);
-            // if(account.length === '') {
-            //     console.log('Los datos estan vacios');
-            // } else {
-            //     console.log('Datos correctos');
-            //     alert.classList.add('animaAlert');
-            //     setTimeout(() => {
-            //         alert.classList.remove('animaAlert');
-            //     }, 2500);
-            // }
-            $.ajax({
-                // url: url,
-                url: `${url}/OperacionesTMS`,
-                type: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                dataType: "json",
-                data: JSON.stringify({
-                    "Accion": "TMSCuentasBancoDEV",
-                    "Data": `<clsParametros>
+            if (account.length == '') {
+                alert.classList.add('animaAlert');
+                textAlert.innerHTML = "El número de cuenta es obligatorio";
+                setTimeout(function () {
+                    alert.classList.remove('animaAlert');
+                }, 2500);
+            } else if (nameAcount.length == '') {
+                alert.classList.add('animaAlert');
+                textAlert.innerHTML = "El nombre de la cuenta no puede estar vacío";
+                setTimeout(function () {
+                    alert.classList.remove('animaAlert');
+                }, 2500);
+            } else if (banco == 0) {
+                alert.classList.add('animaAlert');
+                textAlert.innerHTML = "Tienes que seleccionar un banco del catalogo";
+                setTimeout(function () {
+                    alert.classList.remove('animaAlert');
+                }, 2500);
+            } else {
+                const requestInsert = $.ajax({
+                    url: `${url}/OperacionesTMS`,
+                    type: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    dataType: "json",
+                    data: JSON.stringify({
+                        "Accion": "TMSCuentasBancoDEV",
+                        "Data": `<clsParametros>
                                 <Opcion>G</Opcion>
                                 <Usuario>${userActive}</Usuario>
                                 <clsCuentasBancos>
@@ -146,20 +156,30 @@ $(document).ready(function () {
                                     <CAT_Banco>${banco}</CAT_Banco>
                                 </clsCuentasBancos>
                             </clsParametros>`,
-                    "Token": valToken
-                }),
-                success: function () {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Se agrego correctamente',
-                        showConfirmButton: false,
-                        timer: 1200
-                    });
-                    $('#add').modal('hide');
-                    $('#formAdd')[0].reset();
-                    loadDevExpress();
-                }
-            });
+                        "Token": valToken
+                    })
+                });
+                requestInsert.done(function (res) {
+                    const error = res.codigo;
+                    const message = res.mensaje;
+                    if (error == 600) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: message,
+                            showConfirmButton: true
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'El registro se agrego correctamente!',
+                            showConfirmButton: true
+                        });
+                        $('#add').modal('hide');
+                        $('#formAdd')[0].reset();
+                        loadDevExpress();
+                    }
+                });
+            }
         });
     }
     insertData();
@@ -284,7 +304,7 @@ $(document).ready(function () {
                 e.preventDefault();
                 ajaxUpdate();
             });
-            
+
             // Abrir modal al dar enter en la fila seleccionada
             const keyupSelector = document.querySelector('.dx-selection');
             keyupSelector.addEventListener('keyup', (e) => {
@@ -442,7 +462,6 @@ $(document).ready(function () {
                     headerFilter: {
                         visible: true,
                     },
-                    // 
                     // Sumatoria y contador
                     summary: {
                         totalItems: [{
@@ -483,7 +502,7 @@ $(document).ready(function () {
                         {
                             dataField: 'Usuario',
                             dataType: 'string',
-                            allowEditing: false
+                            allowEditing: false,
                         },
                         {
                             dataField: 'Fecha',
