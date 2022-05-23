@@ -1,10 +1,10 @@
 <?php 
-    include_once './view/includes/head.php';
+    include './view/includes/head.php';
     include_once './post.php';
     session_start();
-    $nameUser = $_SESSION['test']['user'];
-    $tokenUser = $_SESSION['test']['token'];
-    $status = $_SESSION['test']['stToken'];
+    $nameUser = $_SESSION['transmontes']['user'];
+    $tokenUser = $_SESSION['transmontes']['token'];
+    $status = $_SESSION['transmontes']['stToken'];
     if($nameUser == false){
         header('Location: ./index.php');
     }
@@ -33,7 +33,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="./cerrarSesion.php" name="delSession"
+                            <a href="./destroySession.php" name="delSession"
                                 class="d-flex gap-2 align-items-center text-decoration-none link-dropdown">
                                 <i class="fa-solid fa-door-closed"></i>
                                 <p class="m-0">Cerrar Sesion</p>

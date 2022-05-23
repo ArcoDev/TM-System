@@ -5,15 +5,10 @@
         $password = $_POST['pw'];
         $token = $_POST['token'];
         $status = $_POST['stToken'];
-        // session_start();
-        // $_SESSION['test'] = $user;
         session_start();
-        $_SESSION['test'] = array();
-        $userVer = $_SESSION['test']['user'] = $user;
-        $tokenVer = $_SESSION['test']['token'] = $token;
-        $statusUser = $_SESSION['test']['stToken'] = $status;
-        
-        // $nameUser = $_SESSION['test']['user'] = $userVer;
-        // $tokenUser = $_SESSION['test']['token'] = $tokenVer;
+        $_SESSION['transmontes'] = array();
+        $userVer = $_SESSION['transmontes']['user'] = $user;
+        $tokenVer = $_SESSION['transmontes']['token'] = $token;
+        $statusUser = $_SESSION['transmontes']['stToken'] = $status;
     }
 ?>

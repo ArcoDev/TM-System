@@ -1,6 +1,3 @@
-<?php
-    include_once './models/conection.php';
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -29,9 +26,6 @@
     <link rel="stylesheet" href="./view/assets/devExpress/css/dx.common.css">
     <link rel="stylesheet" href="./view/assets/devExpress/css/dx.light.css">
     <script src="./view/assets/devExpress/js/dx.all.js"></script>
-
-    <!-- Json para datos en devExpress -->
-    <script src="./view/assets/js/conveniosEDI.js"></script>
 
     <!-- Funciones Ajax para consultas y modificaciones a la BD -->
     <script src="./view/assets/js/functions-ajax.js"></script>

@@ -1,6 +1,3 @@
-<?php 
-    include_once '../head.php';
-?>
 <div class="login-box d-flex align-items-center justify-content-center">
     <div class="container">
         <div class="row d-flex align-content-center justify-content-center">
@@ -10,8 +7,6 @@
                         <h2 class="card-title text-center">Transmontes</h2>
                         <div class="text-center">
                             <a href="#" class="card-text text-center user-action">Inicio de sesion</a>
-                            |
-                            <a href="#" class="card-text text-center user-action">Registrarme</a>
                         </div>
                         <hr>
                         <form method="POST">

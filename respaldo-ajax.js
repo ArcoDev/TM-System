@@ -172,8 +172,7 @@ $(document).ready(function () {
                         Swal.fire({
                             icon: 'success',
                             title: 'El registro se agrego correctamente!',
-                            showConfirmButton: true,
-                            timer: 1500
+                            showConfirmButton: true
                         });
                         $('#add').modal('hide');
                         $('#formAdd')[0].reset();
@@ -416,7 +415,7 @@ $(document).ready(function () {
                     // Exposrtar tabla a excel
                     export: {
                         enabled: true,
-                        allowExportSelectedData: true,
+                        // allowExportSelectedData: true,
                     },
                     // Seleccionar ID de cada renglon al cual se le da click
                     selection: {
@@ -455,21 +454,19 @@ $(document).ready(function () {
                     // Sumatoria y contador
                     summary: {
                         totalItems: [{
-                                column: 'Cuenta',
-                                summaryType: 'count',
-                            }, {
-                                column: 'OrderDate',
-                                summaryType: 'min',
-                                customizeText(data) {
-                                    return `First: ${DevExpress.localization.formatDate(data.value, 'MMM dd, yyyy')}`;
-                                },
+                            column: 'Usuario',
+                            summaryType: 'count',
+                        }, {
+                            column: 'OrderDate',
+                            summaryType: 'min',
+                            customizeText(data) {
+                                return `First: ${DevExpress.localization.formatDate(data.value, 'MMM dd, yyyy')}`;
                             },
-                            // {
-                            //     column: 'Cuenta',
-                            //     summaryType: 'sum',
-                            //     valueFormat: 'currency',
-                            // }
-                        ],
+                        }, {
+                            column: 'Cuenta',
+                            summaryType: 'sum',
+                            valueFormat: 'currency',
+                        }],
                     },
                     headerFilter: {
                         visible: true,
@@ -524,7 +521,7 @@ $(document).ready(function () {
                             workbook.xlsx.writeBuffer().then((buffer) => {
                                 saveAs(new Blob([buffer], {
                                     type: 'application/octet-stream'
-                                }), 'cuentas.xlsx');
+                                }), 'Test.xlsx');
                             });
                         });
                         e.cancel = true;
@@ -532,6 +529,67 @@ $(document).ready(function () {
                 });
             });
         });
+
+        function isDataCell(cell) {
+            return (cell.area === 'data' && cell.rowType === 'D' && cell.columnType === 'D');
+        }
+
+        function isTotalCell(cell) {
+            return (cell.type === 'T' || cell.type === 'GT' || cell.rowType === 'T' || cell.rowType === 'GT' || cell.columnType === 'T' || cell.columnType === 'GT');
+        }
+
+        function getExcelCellFormat(appearance) {
+            return {
+                fill: {
+                    type: 'pattern',
+                    pattern: 'solid',
+                    fgColor: {
+                        argb: appearance.fill
+                    }
+                },
+                font: {
+                    color: {
+                        argb: appearance.font
+                    },
+                    bold: appearance.bold
+                },
+            };
+        }
+
+        function getCssStyles(appearance) {
+            return {
+                'background-color': `#${appearance.fill}`,
+                color: `#${appearance.font}`,
+                'font-weight': appearance.bold ? 'bold' : undefined,
+            };
+        }
+
+        function getConditionalAppearance(cell) {
+            if (isTotalCell(cell)) {
+                return {
+                    fill: 'F2F2F2',
+                    font: '3F3F3F',
+                    bold: true
+                };
+            }
+            if (cell.value < 30000) {
+                return {
+                    font: '9C0006',
+                    fill: 'FFC7CE'
+                };
+            }
+            if (cell.value > 50000) {
+                return {
+                    font: '006100',
+                    fill: 'C6EFCE'
+                };
+            }
+            return {
+                font: '9C6500',
+                fill: 'FFEB9C'
+            };
+        }
+
         request.fail(function (textStatus) {
             alert("Request failed: " + textStatus);
         });

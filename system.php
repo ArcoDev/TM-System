@@ -1,18 +1,6 @@
-<?php 
-    // include_once './view/includes/head.php';
-    // include_once './post.php';
-    // session_start();
-    // $nameUser = $_SESSION['test']['user'];
-    // $tokenUser = $_SESSION['test']['token'];
-    // $status = $_SESSION['test']['stToken'];
-    // if($nameUser == false){
-    //     header('Location: ./index.php');
-    // }
-?>
-
 <div class="container-fluid system-layout">
     <div class="row">
-        <?php include './navegation.php'; ?>
+        <?php include_once './navegation.php'; ?>
         <div class="col-2 border vh-100">
             <h1 class="text-center pt-4">Menú</h1>
             <div class="accordion accordion-flush" id="accordionFlushExample">
@@ -65,46 +53,8 @@
             </div>
         </div>
         <div class="col-10 p-0">
-            <!-- <nav class="col-12 navegation py-4 px-2">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="logo d-flex gap-2 align-items-center">
-                            <img src="./view//assets//img//transmontes.jpg" alt="Transmontes" class="img-responsive">
-                            <h2 class="m-0">Transmontes</h2>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 d-flex justify-content-end">
-                        <div class="sesion-user d-flex align-items-center" style="gap: 0.5rem;">
-                            <div class="dropdown">
-                                <button class="btn btn-default dropdown-toggle d-flex align-items-center gap-1"
-                                    type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
-                                    aria-expanded="false">
-                                    <p id="userActive" class="m-0"><?php echo $nameUser ?></p>
-                                </button>
-                                <ul class="dropdown-menu p-3" aria-labelledby="dropdownMenuButton1">
-                                    <li class="d-flex gap-2 align-items-center">
-                                        <a href="#"
-                                            class="d-flex gap-2 align-items-center text-decoration-none link-dropdown">
-                                            <i class="fa-solid fa-gear"></i>
-                                            <p class="m-0">Configuración</p>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="./cerrarSesion.php" name="delSession"
-                                            class="d-flex gap-2 align-items-center text-decoration-none link-dropdown">
-                                            <i class="fa-solid fa-door-closed"></i>
-                                            <p class="m-0">Cerrar Sesion</p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <input type="hidden" id="valToken" name="delSession" value="<?php echo $tokenUser ?>">
-                    </div>
-                </div>
-            </nav> -->
             <section class="col-12 dx-viewport">
-                <!-- <p class="head-module">Cuentas Bancos</p> -->
+                <p class="head-module">Cuentas Bancos</p>
                 <div class="row p-3">
                     <div class="actions my-3">
                         <button type="button" class="btn btn-actions" data-bs-toggle="modal" data-bs-target="#add"
@@ -174,3 +124,4 @@
 </div>
 <!-- Modal editar registro -->
 <div id="testModal"></div>
+<?php include_once './footer.php'; ?>

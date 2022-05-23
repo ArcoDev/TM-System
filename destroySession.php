@@ -1,6 +1,5 @@
 <?php
-    @include './models/conection.php';
-
+    include './models/conection.php';
     session_start();
     $_SESSION = array();
     if(ini_get('session.use.cookies')){
@@ -16,9 +15,9 @@
     } catch (Exception $e) {
         echo "Error: " . $e->getMessage();
     }
-    @include './post.php';
+    include './post.php';
     session_start();
-    $changeStatus = $_SESSION['test']['token'];
-    var_dump($changeStatus);
+    $changeStatus = $_SESSION['transmontes']['token'];
+    // var_dump($changeStatus);
     session_destroy();
 ?>
